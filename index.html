@@ -1611,12 +1611,14 @@ nav.scrolled {
    5.85s → rideaux s'écartent (1.0s)
    7.0s  → retiré du DOM
 ━━━━━━━━━━━━━━━━━━━━ */
+document.body.style.overflow = 'hidden';
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('preloader').classList.add('open');
     setTimeout(() => {
       const pl = document.getElementById('preloader');
       if (pl) pl.style.display = 'none';
+      document.body.style.overflow = '';
     }, 1500);
   }, 5500);
 });
