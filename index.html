@@ -1291,11 +1291,16 @@ section[id], div[id], header[id] {
   font-weight:300; color:#fff; display:flex; gap:0.18em;
   justify-content:center; align-items:baseline; letter-spacing:0.04em;
 }
-.mb-l { display:inline-block; opacity:0; transform:translateY(10px); }
-.mb-l:nth-child(1) { animation:plLetter .9s cubic-bezier(.25,.1,.25,1) 2.10s forwards; }
-.mb-l:nth-child(2) { animation:plLetter .9s cubic-bezier(.25,.1,.25,1) 2.24s forwards; }
-.mb-l:nth-child(3) { animation:plLetter .9s cubic-bezier(.25,.1,.25,1) 2.38s forwards; }
-.mb-l:nth-child(4) { animation:plLetter .9s cubic-bezier(.25,.1,.25,1) 2.52s forwards; color:#4ab0ff; }
+.mb-l { display:inline-block; opacity:0; will-change:transform,opacity; }
+.mb-l:nth-child(1),
+.mb-l:nth-child(2),
+.mb-l:nth-child(3) { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; }
+.mb-l:nth-child(4) { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; color:#4ab0ff; }
+@keyframes mbLogoFlash {
+  0%   { opacity:0; transform:scale(1.12); }
+  40%  { opacity:1; transform:scale(0.98); }
+  100% { opacity:1; transform:scale(1); }
+}
 .mb-divider {
   height:1px;
   background:linear-gradient(90deg,transparent,#1e78e8 35%,#1e78e8 65%,transparent);
