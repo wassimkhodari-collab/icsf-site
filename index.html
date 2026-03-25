@@ -1345,10 +1345,13 @@ section[id], div[id], header[id] {
   text-shadow:0 0 18px rgba(63,170,248,0.55), 0 0 40px rgba(30,120,220,0.20);
 }
 .mb-bleu-halo {
-  position:absolute; inset:-40px;
+  position:absolute;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:420px; height:180px;
   border-radius:50%;
-  background:radial-gradient(ellipse 80% 60% at 50% 50%,
-    rgba(63,170,248,0.45) 0%, rgba(30,120,220,0.18) 50%, transparent 100%);
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,
+    rgba(63,170,248,0.50) 0%, rgba(30,120,220,0.20) 50%, transparent 100%);
   opacity:0; pointer-events:none;
   will-change:opacity;
   animation:mbHaloPulse 2.4s ease-in-out 5.4s 2;
