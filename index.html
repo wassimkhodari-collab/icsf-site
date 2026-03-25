@@ -1472,16 +1472,20 @@ function showTreat(id) {
   });
 }
 
-/* ━━━ NAV SCROLL ━━━ */
-const nav = document.querySelector('nav');
+/* ━━━ NAV SCROLL + BACK TO TOP ━━━ */
+const navEl = document.querySelector('nav');
 const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  navEl.classList.toggle('scrolled', window.scrollY > 60);
   backToTop.style.opacity = window.scrollY > 400 ? '1' : '0';
 }, { passive: true });
 
-/* ━━━ SCROLL REVEAL ━━━ */
-const revealTargets = '.section-card, .contact-hero, .stats-band, .info-card, .support-item, .doctor-card, .plateau-item, .etab-card, .step, .highlight, .highlight-gold, .highlight-navy';
+/* ━━━ SCROLL REVEAL ━━━
+   On cible uniquement les éléments sans animation CSS existante
+   pour éviter les conflits avec fadeUp
+━━━━━━━━━━━━━━━━━━━━━━━━ */
+const revealTargets = '.contact-hero, .info-card, .support-item, .doctor-card, .plateau-item, .etab-card, .step, .highlight, .highlight-gold, .highlight-navy';
+
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1489,22 +1493,26 @@ const revealObs = new IntersectionObserver((entries) => {
       revealObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
+}, { threshold: 0.08 });
 
-document.querySelectorAll(revealTargets).forEach(el => {
-  el.classList.add('reveal');
-  revealObs.observe(el);
-});
+/* On attend que le preloader soit parti avant d'activer le reveal */
+setTimeout(() => {
+  document.querySelectorAll(revealTargets).forEach(el => {
+    el.classList.add('reveal');
+    revealObs.observe(el);
+  });
+}, 3600);
 
 /* ━━━ COUNTER ANIMATION ━━━ */
 function animateCount(el, target, duration) {
   const start = performance.now();
+  const original = el.textContent.trim();
   const step = (now) => {
     const p = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.floor(eased * target);
     if (p < 1) requestAnimationFrame(step);
-    else el.textContent = target;
+    else el.textContent = original;
   };
   requestAnimationFrame(step);
 }
@@ -1519,7 +1527,7 @@ const statsObs = new IntersectionObserver((entries) => {
       statsObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.4 });
 
 const statsBand = document.querySelector('.stats-band');
 if (statsBand) statsObs.observe(statsBand);
