@@ -1104,7 +1104,7 @@ section[id], div[id], header[id] {
   text-transform: uppercase;
   color: rgba(255,255,255,0.4);
   opacity: 0;
-  animation: plFadeUp 3s ease 2.2s forwards;
+  animation: plFadeUp 0.8s ease 2.0s forwards;
 }
 @keyframes plFadeUp {
   to { opacity: 1; transform: none; }
@@ -1456,7 +1456,7 @@ nav.scrolled {
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('preloader').classList.add('hidden');
-  }, 3500);
+  }, 5800); /* sous-titre visible à 2.8s → affiché 3s → disparaît à 5.8s */
 });
 
 /* ━━━ TREATMENT TABS ━━━ */
@@ -1501,7 +1501,7 @@ setTimeout(() => {
     el.classList.add('reveal');
     revealObs.observe(el);
   });
-}, 3600);
+}, 6200);
 
 /* ━━━ COUNTER ANIMATION ━━━ */
 function animateCount(el, target, duration) {
