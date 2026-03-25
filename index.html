@@ -1293,9 +1293,10 @@ section[id], div[id], header[id] {
   position:relative;
 }
 .mb-logo-bright {
-  position:absolute; left:0; top:0;
+  position:absolute; left:0; top:0; width:100%;
   font-family:inherit; font-size:inherit; font-weight:inherit;
   letter-spacing:inherit; display:flex; gap:0.18em; align-items:baseline;
+  justify-content:center;
   color:#fff;
   text-shadow:
     0 0 12px rgba(255,255,255,1),
@@ -1312,7 +1313,16 @@ section[id], div[id], header[id] {
 }
 .mb-l { display:inline-block; opacity:0; will-change:transform,opacity; }
 .mb-l { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; }
-.mb-l:last-child { color:#4ab0ff; }
+.mb-l:last-child {
+  color:#fff;
+  animation:
+    mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards,
+    mbFColor    2.8s ease-out                    2.05s forwards;
+}
+@keyframes mbFColor {
+  0%   { color:#fff; }
+  100% { color:#4ab0ff; }
+}
 @keyframes mbLogoFlash {
   0%   { opacity:0; transform:scale(1.12); }
   40%  { opacity:1; transform:scale(0.98); }
