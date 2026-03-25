@@ -1291,29 +1291,23 @@ section[id], div[id], header[id] {
 }
 /* Voile bleu profond */
 /* Aurora — lever de lumière bleue, lent et majestueux */
-/* Flash bleu dans le SVG — depuis l'isocentre (cx=100,cy=100) */
-.mb-iso-flare-svg {
+/* Explosion depuis l'isocentre — onde de choc qui prend tout l'écran */
+.mb-explosion {
   transform-origin: 100px 100px;
-  fill: rgba(70,160,255,0.0);
-  animation: mbSvgFlare 1.1s cubic-bezier(0,0,0.15,1) 1.55s forwards;
+  transform: scale(0);
+  opacity: 0;
+  animation:
+    mbExplode  0.72s cubic-bezier(0.12, 0, 0.28, 1) 2.05s forwards,
+    mbSettle   3.2s  ease-out                        2.77s forwards;
 }
-@keyframes mbSvgFlare {
-  0%   { fill:rgba(70,160,255,0.0);  r:4;   }
-  15%  { fill:rgba(70,160,255,0.85); r:18;  }
-  100% { fill:rgba(70,160,255,0.0);  r:320; }
+@keyframes mbExplode {
+  0%  { transform:scale(0);    opacity:0; }
+  6%  { opacity:1; }
+  100%{ transform:scale(1);    opacity:0.92; }
 }
-/* Aurora SVG — halo qui s'étend depuis l'isocentre */
-.mb-aurora-svg {
-  transform-origin: 100px 100px;
-  fill: rgba(35,110,230,0.0);
-  filter: url(#mb-blur);
-  animation: mbSvgAurora 7.5s cubic-bezier(0.06,0,0.16,1) 1.55s forwards;
-}
-@keyframes mbSvgAurora {
-  0%   { fill:rgba(35,110,230,0.00); r:3;   }
-  5%   { fill:rgba(35,110,230,0.55); }
-  12%  { fill:rgba(35,110,230,0.42); }
-  100% { fill:rgba(35,110,230,0.28); r:700; }
+@keyframes mbSettle {
+  0%  { fill:rgba(55,145,255,0.92); }
+  100%{ fill:rgba(18,65,185,0.38); }
 }
 /* Nom de l'institut — même style que preloader normal */
 .mb-icsf-name {
@@ -1468,13 +1462,15 @@ nav.scrolled {
   <div class="mb-stage">
     <svg class="mb-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <filter id="mb-blur" x="-200%" y="-200%" width="500%" height="500%">
-          <feGaussianBlur stdDeviation="18"/>
-        </filter>
+        <radialGradient id="mb-expl-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="rgba(80,165,255,1.0)"/>
+          <stop offset="45%"  stop-color="rgba(40,110,240,0.75)"/>
+          <stop offset="80%"  stop-color="rgba(18,60,190,0.35)"/>
+          <stop offset="100%" stop-color="rgba(8,25,100,0.0)"/>
+        </radialGradient>
       </defs>
-      <!-- Aurora + flash depuis l'isocentre (100,100) -->
-      <circle class="mb-aurora-svg"    cx="100" cy="100" r="3"/>
-      <circle class="mb-iso-flare-svg" cx="100" cy="100" r="4"/>
+      <!-- Onde de choc bleue depuis l'isocentre -->
+      <circle class="mb-explosion" cx="100" cy="100" r="900" fill="url(#mb-expl-grad)"/>
       <!-- Faisceaux -->
       <line class="mb-beam mb-bp mb-bp1" x1="188" y1="100" x2="100" y2="100"/>
       <line class="mb-beam mb-bp mb-bp2" x1="144" y1="176" x2="100" y2="100"/>
