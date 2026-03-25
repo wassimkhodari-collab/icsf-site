@@ -1061,26 +1061,43 @@ section[id], div[id], header[id] {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PRELOADER — Stéréotaxie
-   Faisceaux convergents vers l'isocentre
-   0.20–1.85s  → 12 faisceaux convergent
-   2.0s        → isocentre + GTV
-   2.1–2.5s    → lettres ICSF
-   2.9s        → ligne dorée
-   3.6s        → sous-titre
-   5.8s        → fondu sortie (1.0s)
-   6.9s        → retiré du DOM
+   PRELOADER — Stéréotaxie v2
+   0.2s   → 12 faisceaux (synchrones)
+   1.4s   → convergence + isocentre + GTV
+   2.1s   → ICSF lettre par lettre
+   2.9s   → ligne + sous-titre
+   5.5s   → stage fade (0.35s)
+   5.85s  → rideaux s'écartent (1.0s)
+   6.9s   → retiré du DOM
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #preloader {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #07101e;
+  background: transparent;
   pointer-events: all;
-  opacity: 1;
-  transition: opacity 1.0s ease;
 }
-#preloader.open { opacity: 0; pointer-events: none; }
+#preloader.open { pointer-events: none; }
+
+/* ── Rideaux ── */
+.pl-curtain-l,
+.pl-curtain-r {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 51%;
+  will-change: transform;
+  transition: transform 1.0s cubic-bezier(0.76, 0, 0.24, 1) 0.35s;
+}
+.pl-curtain-l {
+  left: 0;
+  background: linear-gradient(to right, #07101e 80%, #0e1f32);
+}
+.pl-curtain-r {
+  right: 0;
+  background: linear-gradient(to left,  #07101e 80%, #0e1f32);
+}
+#preloader.open .pl-curtain-l { transform: translateX(-102%); }
+#preloader.open .pl-curtain-r { transform: translateX( 102%); }
 
 /* Scène centrale */
 .pl-stage {
@@ -1090,7 +1107,11 @@ section[id], div[id], header[id] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.35s ease;
 }
+#preloader.open .pl-stage { opacity: 0; }
 
 /* SVG */
 .pl-svg {
@@ -1100,7 +1121,7 @@ section[id], div[id], header[id] {
   margin-bottom: -min(110px, 26vw);
 }
 
-/* ── Faisceaux ── */
+/* ── Faisceaux synchrones ── */
 .pl-beam {
   stroke-linecap: round;
   stroke-dasharray: 88;
@@ -1108,20 +1129,18 @@ section[id], div[id], header[id] {
 }
 .pl-bp { stroke: rgba(184,136,42,0.65); stroke-width: 0.65; }
 .pl-bs { stroke: rgba(255,255,255,0.22); stroke-width: 0.4;  }
-.pl-bp1 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .20s forwards, plBeamDim .6s ease 1.9s forwards; }
-.pl-bp2 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .28s forwards, plBeamDim .6s ease 1.9s forwards; }
-.pl-bp3 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .36s forwards, plBeamDim .6s ease 1.9s forwards; }
-.pl-bp4 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .44s forwards, plBeamDim .6s ease 1.9s forwards; }
-.pl-bp5 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .52s forwards, plBeamDim .6s ease 1.9s forwards; }
-.pl-bp6 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .60s forwards, plBeamDim .6s ease 1.9s forwards; }
-.pl-bs1 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .32s forwards, plBeamDim .6s ease 2.0s forwards; }
-.pl-bs2 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .40s forwards, plBeamDim .6s ease 2.0s forwards; }
-.pl-bs3 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .48s forwards, plBeamDim .6s ease 2.0s forwards; }
-.pl-bs4 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .56s forwards, plBeamDim .6s ease 2.0s forwards; }
-.pl-bs5 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .64s forwards, plBeamDim .6s ease 2.0s forwards; }
-.pl-bs6 { animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) .72s forwards, plBeamDim .6s ease 2.0s forwards; }
+/* Tous les primaires partent en même temps */
+.pl-bp1,.pl-bp2,.pl-bp3,.pl-bp4,.pl-bp5,.pl-bp6 {
+  animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) 0.2s forwards,
+             plBeamDim .5s ease 1.95s forwards;
+}
+/* Secondaires légèrement après — deux salves, comme les arcs de traitement */
+.pl-bs1,.pl-bs2,.pl-bs3,.pl-bs4,.pl-bs5,.pl-bs6 {
+  animation: plBeam 1.2s cubic-bezier(.4,0,.2,1) 0.35s forwards,
+             plBeamDim .5s ease 2.0s forwards;
+}
 @keyframes plBeam    { to { stroke-dashoffset: 0; } }
-@keyframes plBeamDim { to { opacity: 0.28; } }
+@keyframes plBeamDim { to { opacity: 0.25; } }
 
 /* ── Isocentre ── */
 .pl-gtv {
@@ -1132,7 +1151,7 @@ section[id], div[id], header[id] {
   stroke-dashoffset: 126;
   transform: rotate(-90deg);
   transform-origin: 100px 100px;
-  animation: plBeam .5s ease 2.0s forwards;
+  animation: plBeam .5s ease 1.55s forwards;
 }
 .pl-iso-ring {
   fill: none;
@@ -1140,7 +1159,7 @@ section[id], div[id], header[id] {
   stroke-width: 0.8;
   transform-origin: 100px 100px;
   opacity: 0;
-  animation: plIsoRing 1.2s cubic-bezier(0,0,.2,1) 2.05s forwards;
+  animation: plIsoRing 1.2s cubic-bezier(0,0,.2,1) 1.55s forwards;
 }
 @keyframes plIsoRing {
   0%   { opacity: 0.9; transform: scale(0.3); }
@@ -1150,7 +1169,7 @@ section[id], div[id], header[id] {
   fill: rgba(184,136,42,1.0);
   filter: drop-shadow(0 0 4px rgba(184,136,42,0.95));
   opacity: 0;
-  animation: plFade .25s ease 2.0s forwards;
+  animation: plFade .25s ease 1.55s forwards;
 }
 
 /* ── Logo ICSF ── */
@@ -1191,7 +1210,7 @@ section[id], div[id], header[id] {
   text-transform: uppercase;
   color: rgba(255,255,255,0.38);
   opacity: 0;
-  animation: plFade .7s ease 3.6s forwards;
+  animation: plFade .7s ease 3.5s forwards;
 }
 @keyframes plFade { to { opacity: 1; } }
 
@@ -1297,9 +1316,11 @@ nav.scrolled {
 
 <!-- ░░░ PRELOADER ░░░ -->
 <div id="preloader">
+  <div class="pl-curtain-l"></div>
+  <div class="pl-curtain-r"></div>
   <div class="pl-stage">
 
-    <!-- Plan de stéréotaxie — faisceaux convergents vers l'isocentre -->
+    <!-- Plan de stéréotaxie — faisceaux synchrones vers l'isocentre -->
     <svg class="pl-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <!-- Faisceaux primaires (or) — hexagonaux -->
       <line class="pl-beam pl-bp pl-bp1" x1="188" y1="100" x2="100" y2="100"/>
@@ -1308,7 +1329,7 @@ nav.scrolled {
       <line class="pl-beam pl-bp pl-bp4" x1="12"  y1="100" x2="100" y2="100"/>
       <line class="pl-beam pl-bp pl-bp5" x1="56"  y1="24"  x2="100" y2="100"/>
       <line class="pl-beam pl-bp pl-bp6" x1="144" y1="24"  x2="100" y2="100"/>
-      <!-- Faisceaux secondaires (blanc) — décalés de 30° -->
+      <!-- Faisceaux secondaires (blanc) — arc décalé de 30° -->
       <line class="pl-beam pl-bs pl-bs1" x1="176" y1="144" x2="100" y2="100"/>
       <line class="pl-beam pl-bs pl-bs2" x1="100" y1="188" x2="100" y2="100"/>
       <line class="pl-beam pl-bs pl-bs3" x1="24"  y1="144" x2="100" y2="100"/>
@@ -1566,8 +1587,9 @@ nav.scrolled {
 
 <script>
 /* ━━━ PRELOADER ━━━
-   5.8s → fade out (1.0s)
-   6.9s → retiré du DOM
+   5.5s  → stage fade (0.35s)
+   5.85s → rideaux s'écartent (1.0s)
+   7.0s  → retiré du DOM
 ━━━━━━━━━━━━━━━━━━━━ */
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -1575,8 +1597,8 @@ window.addEventListener('load', () => {
     setTimeout(() => {
       const pl = document.getElementById('preloader');
       if (pl) pl.style.display = 'none';
-    }, 1100);
-  }, 5800);
+    }, 1500);
+  }, 5500);
 });
 
 /* ━━━ TREATMENT TABS ━━━ */
