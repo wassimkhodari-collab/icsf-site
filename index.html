@@ -1061,41 +1061,28 @@ section[id], div[id], header[id] {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PRELOADER — PRECISION ONCOLOGIE
-   Séquence :
-   0.2s  → anneau extérieur se trace (1.3s)
-   0.5s  → anneau intérieur (1.0s)
-   1.1s  → bras de visée (0.6s)
-   1.0s  → lettres I C S F (stagger 0.18s)
-   2.0s  → ligne dorée (1.0s)
-   2.7s  → sous-titre (1.1s) → visible à 3.8s
-   3.8s–6.8s → sous-titre affiché 3 secondes
-   6.8s  → rideaux s'écartent (1.1s)
+   PRELOADER — Élégant / Oncologie
+   0.3s  → cercle se trace (1.6s)
+   1.1s  → lettres ICSF (staggered, 1.0s each)
+   2.4s  → ligne dorée (0.8s)
+   3.2s  → sous-titre (0.8s)
+   4.0s  → respiration douce
+   5.5s  → fondu sortie (1.0s)
+   6.5s  → retiré du DOM
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #preloader {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: transparent;
-  pointer-events: all;
-}
-#preloader.open { pointer-events: none; }
-
-/* Rideaux */
-.pl-curtain-top,
-.pl-curtain-bot {
-  position: absolute;
-  left: 0; right: 0;
-  height: 50.5%;
   background: #07101e;
-  transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1);
-  will-change: transform;
-  z-index: 2;
+  pointer-events: all;
+  opacity: 1;
+  transition: opacity 1.0s ease;
 }
-.pl-curtain-top { top: 0; }
-.pl-curtain-bot { bottom: 0; }
-#preloader.open .pl-curtain-top { transform: translateY(-101%); }
-#preloader.open .pl-curtain-bot { transform: translateY(101%); }
+#preloader.open {
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* Scène centrale */
 .pl-stage {
@@ -1105,95 +1092,70 @@ section[id], div[id], header[id] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 3;
-  transition: opacity 0.3s ease;
 }
-#preloader.open .pl-stage { opacity: 0; }
 
-/* ── SVG cercle de visée ── */
+/* ── SVG cercle unique ── */
 .pl-svg {
-  width: min(270px, 56vw);
-  height: min(270px, 56vw);
+  width: min(220px, 50vw);
+  height: min(220px, 50vw);
   overflow: visible;
-  filter: drop-shadow(0 0 18px rgba(184,136,42,0.18));
+  margin-bottom: -min(110px, 25vw);
+  filter: drop-shadow(0 0 22px rgba(184,136,42,0.12));
 }
 
-/* Anneau extérieur r=80, circonf≈503 */
-.pl-ring-o {
+/* Anneau externe (r=72, circ≈452) */
+.pl-ring-g {
+  animation: plBreath 4.5s ease-in-out 2.2s infinite;
+  transform-origin: 100px 100px;
+}
+.pl-ring {
   fill: none;
-  stroke: rgba(184,136,42,0.45);
-  stroke-width: 0.9;
-  stroke-dasharray: 503;
-  stroke-dashoffset: 503;
+  stroke: rgba(255,255,255,0.42);
+  stroke-width: 0.7;
+  stroke-dasharray: 452;
+  stroke-dashoffset: 452;
   transform: rotate(-90deg);
   transform-origin: 100px 100px;
-  animation: plDraw 1.3s cubic-bezier(0.4,0,0.15,1) 0.2s forwards;
+  animation: plDraw 1.6s cubic-bezier(0.4,0,0.15,1) 0.3s forwards;
 }
-/* Anneau intérieur r=60, circonf≈377 */
-.pl-ring-i {
+/* Halo doré intérieur (r=68, circ≈427) */
+.pl-ring-gold {
   fill: none;
-  stroke: rgba(255,255,255,0.06);
-  stroke-width: 0.6;
-  stroke-dasharray: 377;
-  stroke-dashoffset: 377;
+  stroke: rgba(184,136,42,0.18);
+  stroke-width: 4;
+  stroke-dasharray: 427;
+  stroke-dashoffset: 427;
   transform: rotate(-90deg);
   transform-origin: 100px 100px;
-  animation: plDraw 1.0s ease 0.5s forwards;
-}
-/* Bras de visée — partent du centre vers l'extérieur */
-.pl-arm {
-  stroke: rgba(184,136,42,0.2);
-  stroke-width: 0.6;
-  stroke-dasharray: 75;
-  stroke-dashoffset: 75;
-}
-.pl-arm-h { animation: plDraw 0.6s ease 1.1s forwards; }
-.pl-arm-h2 { animation: plDraw 0.6s ease 1.1s forwards; }
-.pl-arm-v  { animation: plDraw 0.6s ease 1.25s forwards; }
-.pl-arm-v2 { animation: plDraw 0.6s ease 1.25s forwards; }
-/* Repères cardinaux */
-.pl-tick {
-  stroke: rgba(184,136,42,0.65);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-dasharray: 7;
-  stroke-dashoffset: 7;
-}
-.pl-tick-t { animation: plDraw 0.25s ease 1.5s  forwards; }
-.pl-tick-r { animation: plDraw 0.25s ease 1.62s forwards; }
-.pl-tick-b { animation: plDraw 0.25s ease 1.74s forwards; }
-.pl-tick-l { animation: plDraw 0.25s ease 1.86s forwards; }
-/* Point central */
-.pl-dot {
-  fill: rgba(184,136,42,0.85);
-  r: 2;
-  opacity: 0;
-  animation: plFade 0.4s ease 1.5s forwards;
+  animation: plDraw 1.9s cubic-bezier(0.4,0,0.15,1) 0.5s forwards;
 }
 @keyframes plDraw { to { stroke-dashoffset: 0; } }
+@keyframes plBreath {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
 
-/* ── Logo ICSF — symétrique avec gap ── */
+/* ── Logo ICSF ── */
 .pl-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 9.5vw, 6.5rem);
+  font-size: clamp(3.2rem, 10vw, 6.8rem);
   font-weight: 300;
   color: #fff;
   display: flex;
-  gap: 0.22em;          /* gap = symétrique, zéro décalage */
+  gap: 0.18em;
   justify-content: center;
   align-items: baseline;
-  margin-top: -min(38px, 9vw);
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
 }
 .pl-l {
   display: inline-block;
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(12px);
 }
-.pl-l:nth-child(1) { animation: plLetter 0.8s cubic-bezier(0.22,1,0.36,1) 1.00s forwards; }
-.pl-l:nth-child(2) { animation: plLetter 0.8s cubic-bezier(0.22,1,0.36,1) 1.18s forwards; }
-.pl-l:nth-child(3) { animation: plLetter 0.8s cubic-bezier(0.22,1,0.36,1) 1.36s forwards; }
-.pl-l:nth-child(4) { animation: plLetter 0.8s cubic-bezier(0.22,1,0.36,1) 1.54s forwards; color: var(--gold); }
+.pl-l:nth-child(1) { animation: plLetter 1.0s cubic-bezier(0.25,0.1,0.25,1) 1.10s forwards; }
+.pl-l:nth-child(2) { animation: plLetter 1.0s cubic-bezier(0.25,0.1,0.25,1) 1.26s forwards; }
+.pl-l:nth-child(3) { animation: plLetter 1.0s cubic-bezier(0.25,0.1,0.25,1) 1.42s forwards; }
+.pl-l:nth-child(4) { animation: plLetter 1.0s cubic-bezier(0.25,0.1,0.25,1) 1.58s forwards; color: var(--gold); }
 @keyframes plLetter { to { opacity: 1; transform: none; } }
 
 /* Séparateur */
@@ -1201,19 +1163,19 @@ section[id], div[id], header[id] {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold) 35%, var(--gold) 65%, transparent);
   width: 0;
-  margin: 1.25rem 0 1.0rem;
-  animation: plLineGrow 1.0s cubic-bezier(0.4,0,0.2,1) 2.0s forwards;
+  margin: 1.1rem 0 0.9rem;
+  animation: plLineGrow 0.8s cubic-bezier(0.4,0,0.2,1) 2.4s forwards;
 }
-@keyframes plLineGrow { to { width: min(255px, 60vw); } }
+@keyframes plLineGrow { to { width: min(220px, 55vw); } }
 
 /* Sous-titre */
 .pl-sub {
-  font-size: clamp(0.47rem, 1.2vw, 0.6rem);
-  letter-spacing: 0.24em;
+  font-size: clamp(0.45rem, 1.15vw, 0.58rem);
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.36);
+  color: rgba(255,255,255,0.38);
   opacity: 0;
-  animation: plFade 1.1s ease 2.7s forwards;
+  animation: plFade 0.8s ease 3.2s forwards;
 }
 @keyframes plFade { to { opacity: 1; } }
 
@@ -1319,28 +1281,14 @@ nav.scrolled {
 
 <!-- ░░░ PRELOADER ░░░ -->
 <div id="preloader">
-  <div class="pl-curtain-top"></div>
-  <div class="pl-curtain-bot"></div>
   <div class="pl-stage">
 
-    <!-- Cercle de visée oncologique -->
+    <!-- Cercle élégant -->
     <svg class="pl-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <!-- Anneau extérieur (r=80) -->
-      <circle class="pl-ring-o" cx="100" cy="100" r="80"/>
-      <!-- Anneau intérieur (r=60) -->
-      <circle class="pl-ring-i" cx="100" cy="100" r="60"/>
-      <!-- Bras de visée depuis le centre -->
-      <line class="pl-arm pl-arm-h"  x1="100" y1="100" x2="175" y2="100"/>
-      <line class="pl-arm pl-arm-h2" x1="100" y1="100" x2="25"  y2="100"/>
-      <line class="pl-arm pl-arm-v"  x1="100" y1="100" x2="100" y2="175"/>
-      <line class="pl-arm pl-arm-v2" x1="100" y1="100" x2="100" y2="25"/>
-      <!-- Repères cardinaux sur l'anneau -->
-      <line class="pl-tick pl-tick-t" x1="100" y1="16" x2="100" y2="24"/>
-      <line class="pl-tick pl-tick-r" x1="176" y1="100" x2="184" y2="100"/>
-      <line class="pl-tick pl-tick-b" x1="100" y1="176" x2="100" y2="184"/>
-      <line class="pl-tick pl-tick-l" x1="16"  y1="100" x2="24"  y2="100"/>
-      <!-- Point central -->
-      <circle class="pl-dot" cx="100" cy="100"/>
+      <g class="pl-ring-g">
+        <circle class="pl-ring-gold" cx="100" cy="100" r="68"/>
+        <circle class="pl-ring"      cx="100" cy="100" r="72"/>
+      </g>
     </svg>
 
     <!-- Texte -->
@@ -1587,18 +1535,17 @@ nav.scrolled {
 
 <script>
 /* ━━━ PRELOADER ━━━
-   3.8s → sous-titre pleinement visible
-   6.8s → rideaux s'écartent (1.1s)
-   8.0s → preloader retiré du DOM
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+   5.5s → fade out (1.0s)
+   6.5s → retiré du DOM
+━━━━━━━━━━━━━━━━━━━━ */
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('preloader').classList.add('open');
     setTimeout(() => {
       const pl = document.getElementById('preloader');
       if (pl) pl.style.display = 'none';
-    }, 1200);
-  }, 6800);
+    }, 1100);
+  }, 5500);
 });
 
 /* ━━━ TREATMENT TABS ━━━ */
