@@ -1349,11 +1349,22 @@ section[id], div[id], header[id] {
 }
 .mb-ribbon { font-size:clamp(0.9rem,2.2vw,1.2rem); opacity:0; animation:plFade .5s ease 4.7s forwards; margin-top:0.55rem; }
 .mb-sub {
-  font-size:clamp(0.50rem,1.25vw,0.66rem); letter-spacing:0.28em;
-  text-transform:uppercase; color:rgba(255,255,255,0.40);
+  font-size:clamp(0.78rem,1.7vw,1.0rem); letter-spacing:0.18em;
+  text-transform:uppercase; color:rgba(255,255,255,0.60);
   opacity:0; animation:plFade .8s ease 4.95s forwards;
-  text-align:center; margin-top:0.3rem;
+  text-align:center; margin-top:0.5rem;
 }
+.mb-cta {
+  display:inline-block; margin-top:0.7rem;
+  padding:0.55rem 1.4rem; border-radius:2px;
+  background:rgba(63,170,248,0.18); border:1px solid rgba(63,170,248,0.55);
+  color:#3faaf8; font-size:clamp(0.72rem,1.5vw,0.88rem);
+  letter-spacing:0.12em; text-transform:uppercase; text-decoration:none;
+  font-weight:600;
+  opacity:0; animation:plFade .6s ease 5.4s forwards;
+  transition:background 0.2s, color 0.2s;
+}
+.mb-cta:hover { background:rgba(63,170,248,0.32); color:#fff; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
    NAV ON SCROLL
@@ -1504,6 +1515,7 @@ nav.scrolled {
     </div>
     <div class="mb-ribbon">💙</div>
     <div class="mb-sub">Mois de sensibilisation au cancer colorectal</div>
+    <a class="mb-cta" href="URL_A_REMPLIR" target="_blank">🔵 Cliquez ici — Commander votre kit de dépistage</a>
   </div>
 </div>
 
