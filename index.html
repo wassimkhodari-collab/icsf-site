@@ -1335,30 +1335,28 @@ section[id], div[id], header[id] {
   animation:mbBleuIn 1.0s cubic-bezier(0.22,1,0.36,1) 4.1s forwards;
 }
 @keyframes mbBleuIn { to { opacity:1; transform:translateY(0); } }
-/* BLEU — halo séparé qui pulse en opacity pure (GPU) */
+/* BLEU — les lettres elles-mêmes flashent */
 .mb-word-bleu {
   display:inline-block; position:relative;
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(3.4rem,9.5vw,7rem);
   font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
   color:#3faaf8;
-  text-shadow:0 0 18px rgba(63,170,248,0.55), 0 0 40px rgba(30,120,220,0.20);
 }
-.mb-bleu-halo {
-  position:absolute;
-  left:50%; top:50%;
-  transform:translate(-50%,-50%);
-  width:420px; height:180px;
-  border-radius:50%;
-  background:radial-gradient(ellipse 50% 50% at 50% 50%,
-    rgba(63,170,248,0.50) 0%, rgba(30,120,220,0.20) 50%, transparent 100%);
+/* Copie superposée en blanc-bleu vif — pulse en opacity seule = GPU pur */
+.mb-bleu-flash {
+  position:absolute; left:0; top:0;
+  font-family:inherit; font-size:inherit; font-weight:inherit;
+  letter-spacing:inherit; text-transform:inherit;
+  color:#c8eaff;
+  text-shadow:0 0 22px rgba(160,220,255,0.95), 0 0 55px rgba(63,170,248,0.75);
   opacity:0; pointer-events:none;
   will-change:opacity;
-  animation:mbHaloPulse 2.4s ease-in-out 5.4s 2;
+  animation:mbLetterFlash 2.4s ease-in-out 5.4s 2;
 }
-@keyframes mbHaloPulse {
-  0%,100% { opacity:0.3; }
-  50%     { opacity:1.0; }
+@keyframes mbLetterFlash {
+  0%,100% { opacity:0; }
+  50%     { opacity:1; }
 }
 .mb-ribbon { font-size:clamp(0.9rem,2.2vw,1.2rem); opacity:0; animation:plFade .5s ease 4.7s forwards; margin-top:0.55rem; }
 .mb-sub {
@@ -1540,7 +1538,7 @@ nav.scrolled {
     <div class="mb-icsf-name">Institut de Cancérologie du Sud Francilien</div>
     <div class="mb-title">
       <span class="mb-word-mars">mars</span>
-      <div class="mb-bleu-wrap"><span class="mb-word-bleu"><span class="mb-bleu-halo"></span>Bleu</span></div>
+      <div class="mb-bleu-wrap"><span class="mb-word-bleu"><span class="mb-bleu-flash" aria-hidden="true">Bleu</span>Bleu</span></div>
     </div>
     <div class="mb-ribbon">💙</div>
     <div class="mb-sub">Mois de sensibilisation au cancer colorectal</div>
