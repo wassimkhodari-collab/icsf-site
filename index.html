@@ -1292,28 +1292,21 @@ section[id], div[id], header[id] {
   justify-content:center; align-items:baseline; letter-spacing:0.04em;
   position:relative;
 }
-.mb-logo-flare {
-  position:absolute;
-  inset:-0.15em -0.4em;
-  background:radial-gradient(ellipse at 50% 50%,
-    rgba(220,242,255,1.0)  0%,
-    rgba(160,215,255,0.80) 20%,
-    rgba(80,170,255,0.40)  50%,
-    transparent            75%);
-  pointer-events:none;
-  opacity:0;
-  will-change:opacity;
-  animation:mbLogoFlare 2.2s ease-out 2.05s forwards;
+.mb-logo-bright {
+  position:absolute; left:0; top:0;
+  font-family:inherit; font-size:inherit; font-weight:inherit;
+  letter-spacing:inherit; display:flex; gap:0.18em; align-items:baseline;
+  color:#fff; pointer-events:none;
+  opacity:0; will-change:opacity;
+  animation:mbLogoFlare 2.4s ease-out 2.05s forwards;
 }
 @keyframes mbLogoFlare {
   0%   { opacity:1; }
   100% { opacity:0; }
 }
 .mb-l { display:inline-block; opacity:0; will-change:transform,opacity; }
-.mb-l:nth-child(1),
-.mb-l:nth-child(2),
-.mb-l:nth-child(3) { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; }
-.mb-l:nth-child(4) { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; color:#4ab0ff; }
+.mb-l { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; }
+.mb-l:last-child { color:#4ab0ff; }
 @keyframes mbLogoFlash {
   0%   { opacity:0; transform:scale(1.12); }
   40%  { opacity:1; transform:scale(0.98); }
@@ -1578,7 +1571,7 @@ nav.scrolled {
       <circle class="mb-iso-dot"   cx="100" cy="100" r="2.5"/>
     </svg>
     <div class="mb-logo">
-      <div class="mb-logo-flare"></div>
+      <div class="mb-logo-bright" aria-hidden="true"><span>I</span><span>C</span><span>S</span><span>F</span></div>
       <span class="mb-l">I</span>
       <span class="mb-l">C</span>
       <span class="mb-l">S</span>
