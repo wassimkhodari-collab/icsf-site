@@ -1153,23 +1153,46 @@ section[id], div[id], header[id] {
   transform-origin: 100px 100px;
   animation: plBeam .5s ease 1.55s forwards;
 }
-.pl-iso-ring {
-  fill: none;
-  stroke: rgba(184,136,42,0.8);
-  stroke-width: 0.8;
+/* Flash blanc au moment de l'impact */
+.pl-iso-flash {
+  fill: rgba(255,255,255,0.95);
   transform-origin: 100px 100px;
   opacity: 0;
-  animation: plIsoRing 1.2s cubic-bezier(0,0,.2,1) 1.55s forwards;
+  animation: plFlash 0.45s cubic-bezier(0,0,.2,1) 1.55s forwards;
+}
+@keyframes plFlash {
+  0%   { opacity: 1;   transform: scale(0.1); }
+  40%  { opacity: 0.7; transform: scale(1.8); }
+  100% { opacity: 0;   transform: scale(3.2); }
+}
+/* Onde principale — or vif */
+.pl-iso-ring {
+  fill: none;
+  stroke: rgba(255,210,80,1.0);
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 5px rgba(255,200,60,0.85));
+  transform-origin: 100px 100px;
+  opacity: 0;
+  animation: plIsoRing 1.1s cubic-bezier(0,0,.2,1) 1.55s forwards;
+}
+/* Onde écho — légèrement décalée */
+.pl-iso-ring2 {
+  fill: none;
+  stroke: rgba(184,136,42,0.55);
+  stroke-width: 0.7;
+  transform-origin: 100px 100px;
+  opacity: 0;
+  animation: plIsoRing 1.3s cubic-bezier(0,0,.2,1) 1.75s forwards;
 }
 @keyframes plIsoRing {
-  0%   { opacity: 0.9; transform: scale(0.3); }
-  100% { opacity: 0;   transform: scale(4.5); }
+  0%   { opacity: 1;   transform: scale(0.2); }
+  100% { opacity: 0;   transform: scale(5.0); }
 }
 .pl-iso-dot {
-  fill: rgba(184,136,42,1.0);
-  filter: drop-shadow(0 0 4px rgba(184,136,42,0.95));
+  fill: rgba(255,220,90,1.0);
+  filter: drop-shadow(0 0 6px rgba(255,200,60,1.0)) drop-shadow(0 0 12px rgba(184,136,42,0.7));
   opacity: 0;
-  animation: plFade .25s ease 1.55s forwards;
+  animation: plFade .2s ease 1.55s forwards;
 }
 
 /* ── Logo ICSF ── */
@@ -1339,8 +1362,10 @@ nav.scrolled {
       <!-- Volume cible (GTV) -->
       <circle class="pl-gtv" cx="100" cy="100" r="20"/>
       <!-- Confirmation isocentre -->
-      <circle class="pl-iso-ring" cx="100" cy="100" r="4"/>
-      <circle class="pl-iso-dot"  cx="100" cy="100" r="2.5"/>
+      <circle class="pl-iso-flash" cx="100" cy="100" r="3"/>
+      <circle class="pl-iso-ring"  cx="100" cy="100" r="4"/>
+      <circle class="pl-iso-ring2" cx="100" cy="100" r="4"/>
+      <circle class="pl-iso-dot"   cx="100" cy="100" r="2.5"/>
     </svg>
 
     <!-- Texte -->
