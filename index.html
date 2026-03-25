@@ -1291,30 +1291,24 @@ section[id], div[id], header[id] {
 }
 /* Voile bleu profond */
 /* Aurora — lever de lumière bleue, lent et majestueux */
-/* Explosion — div CSS, GPU-fluide, depuis l'isocentre */
-.mb-explosion-div {
-  position:absolute; left:50%; top:36%;
-  width:220px; height:220px; border-radius:50%;
-  transform:translate(-50%,-50%) scale(0);
-  background:radial-gradient(circle,
-    rgba(90,175,255,1.0)  0%,
-    rgba(45,120,245,0.80) 30%,
-    rgba(18,65,200,0.40)  62%,
-    transparent           100%);
-  opacity:0; pointer-events:none;
-  will-change:transform,opacity;
+/* Explosion SVG — cercle à cx=100 cy=100, alignement géométrique parfait */
+.mb-blast {
+  transform-origin: 100px 100px;
+  transform: scale(0);
+  opacity: 0;
+  will-change: transform, opacity;
   animation:
-    mbExplode 0.78s cubic-bezier(0.08,0,0.22,1) 2.05s forwards,
-    mbSettle  3.5s  ease-out                     2.83s forwards;
+    mbBlast  0.80s cubic-bezier(0.08, 0, 0.20, 1) 2.05s forwards,
+    mbSettle 4.5s  ease-out                        2.85s forwards;
 }
-@keyframes mbExplode {
-  0%   { transform:translate(-50%,-50%) scale(0);  opacity:0; }
-  7%   { opacity:1; }
-  100% { transform:translate(-50%,-50%) scale(14); opacity:0.90; }
+@keyframes mbBlast {
+  0%  { transform:scale(0);  opacity:0; }
+  7%  { opacity:1; }
+  100%{ transform:scale(20); opacity:0.90; }
 }
 @keyframes mbSettle {
-  0%   { opacity:0.90; }
-  100% { opacity:0.38; }
+  0%  { opacity:0.90; }
+  100%{ opacity:0.35; }
 }
 /* Nom de l'institut — même style que preloader normal */
 .mb-icsf-name {
@@ -1371,8 +1365,8 @@ section[id], div[id], header[id] {
   letter-spacing:0.14em; text-transform:uppercase; text-decoration:none;
   font-weight:600; text-align:center;
   opacity:0; transform:scale(0.88);
-  animation:mbCtaFlash 0.55s cubic-bezier(0.22,1,0.36,1) 4.0s forwards,
-            mbCtaPulse 2.2s ease-in-out 4.8s 2;
+  animation:mbCtaFlash 0.55s cubic-bezier(0.22,1,0.36,1) 5.3s forwards,
+            mbCtaPulse 2.2s ease-in-out 6.0s 2;
   transition:background 0.25s, box-shadow 0.25s;
   will-change:transform,opacity;
 }
@@ -1495,8 +1489,17 @@ nav.scrolled {
   <div class="mb-curtain-l"></div>
   <div class="mb-curtain-r"></div>
   <div class="mb-stage">
-    <div class="mb-explosion-div"></div>
     <svg class="mb-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="mb-blast-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="rgb(130,205,255)" stop-opacity="1.0"/>
+          <stop offset="28%"  stop-color="rgb(55,138,248)"  stop-opacity="0.88"/>
+          <stop offset="62%"  stop-color="rgb(20,72,205)"   stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="rgb(8,28,110)"    stop-opacity="0.0"/>
+        </radialGradient>
+      </defs>
+      <!-- Explosion depuis l'isocentre — géométriquement centré en cx=100 cy=100 -->
+      <circle class="mb-blast" cx="100" cy="100" r="80" fill="url(#mb-blast-grad)"/>
       <!-- Faisceaux -->
       <line class="mb-beam mb-bp mb-bp1" x1="188" y1="100" x2="100" y2="100"/>
       <line class="mb-beam mb-bp mb-bp2" x1="144" y1="176" x2="100" y2="100"/>
@@ -1838,7 +1841,7 @@ window.addEventListener('load', () => {
       if (pl) pl.style.display = 'none';
       document.body.style.overflow = '';
     }, 1500);
-  }, _plId === 'preloader-mb' ? 7500 : 5500);
+  }, _plId === 'preloader-mb' ? 8800 : 5500);
 });
 
 /* ━━━ TREATMENT TABS ━━━ */
