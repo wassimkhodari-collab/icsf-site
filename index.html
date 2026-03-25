@@ -1289,14 +1289,33 @@ section[id], div[id], header[id] {
   width:0; margin:1.1rem 0 0.8rem;
   animation:plLineGrow .7s cubic-bezier(.4,0,.2,1) 2.9s forwards;
 }
-/* Flash ambiance bleue */
+/* Voile bleu profond */
 .mb-flash {
   position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(ellipse 65% 45% at 50% 50%, rgba(74,176,255,0.16) 0%, transparent 70%);
+  background:radial-gradient(ellipse 80% 60% at 50% 44%, rgba(8,38,90,0.72) 0%, rgba(4,14,28,0.0) 70%);
   opacity:0;
-  animation:mbGlow 2.2s ease 3.1s forwards;
+  animation:mbGlow 3.0s ease 3.0s forwards;
 }
-@keyframes mbGlow { 0%{opacity:0} 20%{opacity:1} 100%{opacity:0.22} }
+@keyframes mbGlow { 0%{opacity:0} 18%{opacity:1} 100%{opacity:0.65} }
+
+/* Ondes d'expansion — nova bleue */
+.mb-ring {
+  position:absolute; left:50%; top:42%;
+  transform:translate(-50%,-50%) scale(0);
+  border-radius:50%; width:90px; height:90px;
+  border:1.5px solid rgba(74,176,255,0.9);
+  box-shadow:0 0 12px rgba(74,176,255,0.5), inset 0 0 12px rgba(74,176,255,0.12);
+  opacity:0; pointer-events:none;
+}
+.mb-ring-1 { animation:mbRingExpand 2.2s cubic-bezier(0,0,.15,1) 3.05s forwards; }
+.mb-ring-2 { animation:mbRingExpand 2.2s cubic-bezier(0,0,.15,1) 3.28s forwards; border-color:rgba(74,176,255,0.65); }
+.mb-ring-3 { animation:mbRingExpand 2.2s cubic-bezier(0,0,.15,1) 3.52s forwards; border-color:rgba(74,176,255,0.40); }
+.mb-ring-4 { animation:mbRingExpand 2.2s cubic-bezier(0,0,.15,1) 3.78s forwards; border-color:rgba(74,176,255,0.20); width:110px; height:110px; }
+@keyframes mbRingExpand {
+  0%   { opacity:1;   transform:translate(-50%,-50%) scale(0.15); }
+  12%  { opacity:0.9; }
+  100% { opacity:0;   transform:translate(-50%,-50%) scale(22); }
+}
 
 /* Titre MARS BLEU en deux temps */
 .mb-title { display:flex; align-items:baseline; gap:0.3em; justify-content:center; }
@@ -1457,12 +1476,16 @@ nav.scrolled {
     </div>
     <div class="mb-divider"></div>
     <div class="mb-flash"></div>
+    <div class="mb-ring mb-ring-1"></div>
+    <div class="mb-ring mb-ring-2"></div>
+    <div class="mb-ring mb-ring-3"></div>
+    <div class="mb-ring mb-ring-4"></div>
     <div class="mb-title">
       <span class="mb-word-mars">Mars</span>
       <span class="mb-word-bleu">Bleu</span>
     </div>
     <div class="mb-ribbon">💙</div>
-    <div class="mb-sub">Dépistage &middot; Prévention &middot; Solidarité</div>
+    <div class="mb-sub">Mois de sensibilisation au cancer colorectal</div>
   </div>
 </div>
 
