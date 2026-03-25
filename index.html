@@ -1312,12 +1312,12 @@ section[id], div[id], header[id] {
   100% { opacity:0; }
 }
 .mb-l { display:inline-block; opacity:0; will-change:transform,opacity; }
-.mb-l { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards; }
+.mb-l { animation:mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.20s forwards; }
 .mb-l:last-child {
   color:#fff;
   animation:
     mbLogoFlash .5s cubic-bezier(0.22,1,0.36,1) 2.05s forwards,
-    mbFColor    2.8s ease-out                    2.05s forwards;
+    mbFColor    2.8s ease-out                    2.20s forwards;
 }
 @keyframes mbFColor {
   0%   { color:#fff; }
@@ -1439,6 +1439,16 @@ section[id], div[id], header[id] {
   background:rgba(63,170,248,0.28);
   box-shadow:0 0 50px rgba(63,170,248,0.6), inset 0 0 24px rgba(63,170,248,0.15);
 }
+.mb-skip {
+  position:fixed; bottom:1.8rem; right:2rem; z-index:10000;
+  background:transparent; border:1px solid rgba(255,255,255,0.25);
+  color:rgba(255,255,255,0.45); font-size:0.72rem; letter-spacing:0.18em;
+  text-transform:uppercase; padding:0.45rem 1rem; border-radius:2px;
+  cursor:pointer; opacity:0; will-change:opacity;
+  animation:plFade .4s ease 2s forwards;
+  transition:color .2s, border-color .2s;
+}
+.mb-skip:hover { color:#fff; border-color:rgba(255,255,255,0.6); }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
    NAV ON SCROLL
@@ -1600,12 +1610,13 @@ nav.scrolled {
       <div class="mb-bleu-wrap"><span class="mb-word-bleu"><span class="mb-bleu-flash" aria-hidden="true">Bleu</span>Bleu</span></div>
     </div>
     <div class="mb-ribbon">💙</div>
-    <div class="mb-sub">Mois de sensibilisation au cancer colorectal</div>
+    <div class="mb-sub">Ensemble contre le cancer colorectal</div>
     <a class="mb-cta" href="https://monkit.depistage-colorectal.fr/#/accueil" target="_blank">
       <span>Commander votre kit de dépistage</span>
       <span style="color:#3faaf8;font-size:1.1em;">→</span>
     </a>
   </div>
+  <button class="mb-skip" onclick="(function(){var pl=document.getElementById('preloader-mb');pl.classList.add('open');setTimeout(function(){pl.style.display='none';document.body.style.overflow='';},1500);})()">Passer ›</button>
 </div>
 
 <!-- ░░░ PRELOADER ░░░ -->
