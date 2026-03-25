@@ -1061,57 +1061,85 @@ section[id], div[id], header[id] {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
-   PRELOADER
+   PRELOADER — RIDEAU CINÉMATIQUE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #preloader {
   position: fixed;
   inset: 0;
-  background: var(--navy);
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.7s ease, visibility 0.7s ease;
+  pointer-events: all;
 }
-#preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+#preloader.hidden { pointer-events: none; }
+
+/* Les deux rideaux */
+.pl-curtain-top,
+.pl-curtain-bot {
+  position: absolute;
+  left: 0; right: 0;
+  height: 50%;
+  background: var(--navy);
+  transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
 }
-.preloader-inner { text-align: center; }
-.preloader-logo {
+.pl-curtain-top { top: 0; }
+.pl-curtain-bot { bottom: 0; }
+#preloader.hidden .pl-curtain-top { transform: translateY(-101%); }
+#preloader.hidden .pl-curtain-bot { transform: translateY(101%); }
+
+/* Contenu centré */
+.pl-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  transition: opacity 0.35s ease;
+  white-space: nowrap;
+}
+#preloader.hidden .pl-center { opacity: 0; }
+
+/* Logo lettre par lettre */
+.pl-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 4.5rem;
-  font-weight: 500;
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 300;
   color: #fff;
-  letter-spacing: 0.1em;
-  opacity: 0;
-  transform: translateY(24px);
-  animation: plFadeUp 0.7s ease 0.3s forwards;
+  letter-spacing: 0.35em;
+  display: flex;
+  justify-content: center;
+  padding-right: 0.35em; /* compenser le letter-spacing sur la dernière lettre */
 }
-.preloader-logo em { color: var(--gold); font-style: normal; }
-.preloader-line {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+.pl-l {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(36px);
+}
+.pl-l:nth-child(1) { animation: plLetter 0.7s cubic-bezier(0.22,1,0.36,1) 0.25s forwards; }
+.pl-l:nth-child(2) { animation: plLetter 0.7s cubic-bezier(0.22,1,0.36,1) 0.45s forwards; }
+.pl-l:nth-child(3) { animation: plLetter 0.7s cubic-bezier(0.22,1,0.36,1) 0.65s forwards; }
+.pl-l:nth-child(4) { animation: plLetter 0.7s cubic-bezier(0.22,1,0.36,1) 0.85s forwards; color: var(--gold); }
+@keyframes plLetter { to { opacity: 1; transform: none; } }
+
+/* Ligne dorée */
+.pl-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--gold) 60%, transparent);
   width: 0;
-  margin: 1.4rem auto;
-  border-radius: 2px;
-  animation: plLine 0.9s cubic-bezier(0.4,0,0.2,1) 0.9s forwards;
+  margin: 1.6rem auto;
+  animation: plLine 1.1s cubic-bezier(0.4,0,0.2,1) 1.3s forwards;
 }
-.preloader-sub {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
+@keyframes plLine { to { width: min(320px, 70vw); } }
+
+/* Sous-titre */
+.pl-sub {
+  font-size: clamp(0.55rem, 1.5vw, 0.68rem);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.45);
   opacity: 0;
-  animation: plFadeUp 0.6s ease 1.4s forwards;
+  animation: plSub 1s ease 2.1s forwards;
 }
-@keyframes plFadeUp {
-  to { opacity: 1; transform: none; }
-}
-@keyframes plLine {
-  to { width: 220px; }
-}
+@keyframes plSub { to { opacity: 1; } }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
    NAV ON SCROLL
@@ -1215,10 +1243,14 @@ nav.scrolled {
 
 <!-- ░░░ PRELOADER ░░░ -->
 <div id="preloader">
-  <div class="preloader-inner">
-    <div class="preloader-logo">ICS<em>F</em></div>
-    <div class="preloader-line"></div>
-    <div class="preloader-sub">Institut de Cancérologie du Sud Francilien</div>
+  <div class="pl-curtain-top"></div>
+  <div class="pl-curtain-bot"></div>
+  <div class="pl-center">
+    <div class="pl-logo">
+      <span class="pl-l">I</span><span class="pl-l">C</span><span class="pl-l">S</span><span class="pl-l">F</span>
+    </div>
+    <div class="pl-line"></div>
+    <div class="pl-sub">Institut de Cancérologie du Sud Francilien</div>
   </div>
 </div>
 
@@ -1452,11 +1484,23 @@ nav.scrolled {
 </footer>
 
 <script>
-/* ━━━ PRELOADER ━━━ */
+/* ━━━ PRELOADER ━━━
+   Séquence :
+   0.25–1.55s  → lettres I C S F
+   1.3–2.4s    → ligne dorée
+   2.1–3.1s    → sous-titre (pleinement visible à ~3.1s)
+   3.1–6.1s    → sous-titre affiché 3 secondes
+   6.1s        → rideaux s'écartent (1s)
+   7.2s        → preloader retiré du DOM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('preloader').classList.add('hidden');
-  }, 2000);
+    setTimeout(() => {
+      const pl = document.getElementById('preloader');
+      if (pl) pl.style.display = 'none';
+    }, 1100);
+  }, 6100);
 });
 
 /* ━━━ TREATMENT TABS ━━━ */
@@ -1472,16 +1516,20 @@ function showTreat(id) {
   });
 }
 
-/* ━━━ NAV SCROLL ━━━ */
-const nav = document.querySelector('nav');
+/* ━━━ NAV SCROLL + BACK TO TOP ━━━ */
+const navEl = document.querySelector('nav');
 const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  navEl.classList.toggle('scrolled', window.scrollY > 60);
   backToTop.style.opacity = window.scrollY > 400 ? '1' : '0';
 }, { passive: true });
 
-/* ━━━ SCROLL REVEAL ━━━ */
-const revealTargets = '.section-card, .contact-hero, .stats-band, .info-card, .support-item, .doctor-card, .plateau-item, .etab-card, .step, .highlight, .highlight-gold, .highlight-navy';
+/* ━━━ SCROLL REVEAL ━━━
+   On cible uniquement les éléments sans animation CSS existante
+   pour éviter les conflits avec fadeUp
+━━━━━━━━━━━━━━━━━━━━━━━━ */
+const revealTargets = '.contact-hero, .info-card, .support-item, .doctor-card, .plateau-item, .etab-card, .step, .highlight, .highlight-gold, .highlight-navy';
+
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1489,22 +1537,26 @@ const revealObs = new IntersectionObserver((entries) => {
       revealObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
+}, { threshold: 0.08 });
 
-document.querySelectorAll(revealTargets).forEach(el => {
-  el.classList.add('reveal');
-  revealObs.observe(el);
-});
+/* On attend que le preloader soit parti avant d'activer le reveal */
+setTimeout(() => {
+  document.querySelectorAll(revealTargets).forEach(el => {
+    el.classList.add('reveal');
+    revealObs.observe(el);
+  });
+}, 7500);
 
 /* ━━━ COUNTER ANIMATION ━━━ */
 function animateCount(el, target, duration) {
   const start = performance.now();
+  const original = el.textContent.trim();
   const step = (now) => {
     const p = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.floor(eased * target);
     if (p < 1) requestAnimationFrame(step);
-    else el.textContent = target;
+    else el.textContent = original;
   };
   requestAnimationFrame(step);
 }
@@ -1519,7 +1571,7 @@ const statsObs = new IntersectionObserver((entries) => {
       statsObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.4 });
 
 const statsBand = document.querySelector('.stats-band');
 if (statsBand) statsObs.observe(statsBand);
