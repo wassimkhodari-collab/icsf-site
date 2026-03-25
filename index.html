@@ -1290,6 +1290,24 @@ section[id], div[id], header[id] {
   font-family:'Cormorant Garamond',serif; font-size:clamp(3.2rem,10vw,6.8rem);
   font-weight:300; color:#fff; display:flex; gap:0.18em;
   justify-content:center; align-items:baseline; letter-spacing:0.04em;
+  position:relative;
+}
+.mb-logo-flare {
+  position:absolute;
+  inset:-0.15em -0.4em;
+  background:radial-gradient(ellipse at 50% 50%,
+    rgba(220,242,255,1.0)  0%,
+    rgba(160,215,255,0.80) 20%,
+    rgba(80,170,255,0.40)  50%,
+    transparent            75%);
+  pointer-events:none;
+  opacity:0;
+  will-change:opacity;
+  animation:mbLogoFlare 2.2s ease-out 2.05s forwards;
+}
+@keyframes mbLogoFlare {
+  0%   { opacity:1; }
+  100% { opacity:0; }
 }
 .mb-l { display:inline-block; opacity:0; will-change:transform,opacity; }
 .mb-l:nth-child(1),
@@ -1560,6 +1578,7 @@ nav.scrolled {
       <circle class="mb-iso-dot"   cx="100" cy="100" r="2.5"/>
     </svg>
     <div class="mb-logo">
+      <div class="mb-logo-flare"></div>
       <span class="mb-l">I</span>
       <span class="mb-l">C</span>
       <span class="mb-l">S</span>
