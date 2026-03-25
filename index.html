@@ -1291,23 +1291,30 @@ section[id], div[id], header[id] {
 }
 /* Voile bleu profond */
 /* Aurora — lever de lumière bleue, lent et majestueux */
-/* Explosion depuis l'isocentre — onde de choc qui prend tout l'écran */
-.mb-explosion {
-  transform-origin: 100px 100px;
-  transform: scale(0);
-  opacity: 0;
+/* Explosion — div CSS, GPU-fluide, depuis l'isocentre */
+.mb-explosion-div {
+  position:absolute; left:50%; top:36%;
+  width:220px; height:220px; border-radius:50%;
+  transform:translate(-50%,-50%) scale(0);
+  background:radial-gradient(circle,
+    rgba(90,175,255,1.0)  0%,
+    rgba(45,120,245,0.80) 30%,
+    rgba(18,65,200,0.40)  62%,
+    transparent           100%);
+  opacity:0; pointer-events:none;
+  will-change:transform,opacity;
   animation:
-    mbExplode  0.72s cubic-bezier(0.12, 0, 0.28, 1) 2.05s forwards,
-    mbSettle   3.2s  ease-out                        2.77s forwards;
+    mbExplode 0.78s cubic-bezier(0.08,0,0.22,1) 2.05s forwards,
+    mbSettle  3.5s  ease-out                     2.83s forwards;
 }
 @keyframes mbExplode {
-  0%  { transform:scale(0);    opacity:0; }
-  6%  { opacity:1; }
-  100%{ transform:scale(1);    opacity:0.92; }
+  0%   { transform:translate(-50%,-50%) scale(0);  opacity:0; }
+  7%   { opacity:1; }
+  100% { transform:translate(-50%,-50%) scale(14); opacity:0.90; }
 }
 @keyframes mbSettle {
-  0%  { fill:rgba(55,145,255,0.92); }
-  100%{ fill:rgba(18,65,185,0.38); }
+  0%   { opacity:0.90; }
+  100% { opacity:0.38; }
 }
 /* Nom de l'institut — même style que preloader normal */
 .mb-icsf-name {
@@ -1355,16 +1362,33 @@ section[id], div[id], header[id] {
   text-align:center; margin-top:0.5rem;
 }
 .mb-cta {
-  display:inline-block; margin-top:0.7rem;
-  padding:0.55rem 1.4rem; border-radius:2px;
-  background:rgba(63,170,248,0.18); border:1px solid rgba(63,170,248,0.55);
-  color:#3faaf8; font-size:clamp(0.72rem,1.5vw,0.88rem);
-  letter-spacing:0.12em; text-transform:uppercase; text-decoration:none;
-  font-weight:600;
-  opacity:0; animation:plFade .6s ease 5.4s forwards;
-  transition:background 0.2s, color 0.2s;
+  display:inline-flex; align-items:center; gap:0.7em;
+  margin-top:1.1rem; padding:0.75rem 2.2rem; border-radius:3px;
+  background:rgba(63,170,248,0.12);
+  border:1.5px solid rgba(63,170,248,0.70);
+  box-shadow:0 0 22px rgba(63,170,248,0.22), inset 0 0 16px rgba(63,170,248,0.06);
+  color:#fff; font-size:clamp(0.8rem,1.7vw,1.05rem);
+  letter-spacing:0.14em; text-transform:uppercase; text-decoration:none;
+  font-weight:600; text-align:center;
+  opacity:0; transform:scale(0.88);
+  animation:mbCtaFlash 0.55s cubic-bezier(0.22,1,0.36,1) 4.4s forwards,
+            mbCtaPulse 2.2s ease-in-out 5.2s 2;
+  transition:background 0.25s, box-shadow 0.25s;
+  will-change:transform,opacity;
 }
-.mb-cta:hover { background:rgba(63,170,248,0.32); color:#fff; }
+@keyframes mbCtaFlash {
+  0%   { opacity:0; transform:scale(0.88); filter:brightness(2.5); }
+  45%  { filter:brightness(1.6); }
+  100% { opacity:1; transform:scale(1);    filter:brightness(1); }
+}
+@keyframes mbCtaPulse {
+  0%,100% { box-shadow:0 0 18px rgba(63,170,248,0.22), inset 0 0 14px rgba(63,170,248,0.05); }
+  50%     { box-shadow:0 0 40px rgba(63,170,248,0.55), inset 0 0 22px rgba(63,170,248,0.12); }
+}
+.mb-cta:hover {
+  background:rgba(63,170,248,0.28);
+  box-shadow:0 0 50px rgba(63,170,248,0.6), inset 0 0 24px rgba(63,170,248,0.15);
+}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
    NAV ON SCROLL
@@ -1471,17 +1495,8 @@ nav.scrolled {
   <div class="mb-curtain-l"></div>
   <div class="mb-curtain-r"></div>
   <div class="mb-stage">
+    <div class="mb-explosion-div"></div>
     <svg class="mb-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="mb-expl-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stop-color="rgba(80,165,255,1.0)"/>
-          <stop offset="45%"  stop-color="rgba(40,110,240,0.75)"/>
-          <stop offset="80%"  stop-color="rgba(18,60,190,0.35)"/>
-          <stop offset="100%" stop-color="rgba(8,25,100,0.0)"/>
-        </radialGradient>
-      </defs>
-      <!-- Onde de choc bleue depuis l'isocentre -->
-      <circle class="mb-explosion" cx="100" cy="100" r="900" fill="url(#mb-expl-grad)"/>
       <!-- Faisceaux -->
       <line class="mb-beam mb-bp mb-bp1" x1="188" y1="100" x2="100" y2="100"/>
       <line class="mb-beam mb-bp mb-bp2" x1="144" y1="176" x2="100" y2="100"/>
@@ -1515,7 +1530,10 @@ nav.scrolled {
     </div>
     <div class="mb-ribbon">💙</div>
     <div class="mb-sub">Mois de sensibilisation au cancer colorectal</div>
-    <a class="mb-cta" href="https://monkit.depistage-colorectal.fr/#/accueil" target="_blank">🔵 Cliquez ici — Commander votre kit de dépistage</a>
+    <a class="mb-cta" href="https://monkit.depistage-colorectal.fr/#/accueil" target="_blank">
+      <span>Commander votre kit de dépistage</span>
+      <span style="color:#3faaf8;font-size:1.1em;">→</span>
+    </a>
   </div>
 </div>
 
