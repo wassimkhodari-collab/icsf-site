@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>💣 BomberFriends</title>
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0f0f1a;
+      color: #eee;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #app { text-align: center; width: 100%; max-width: 640px; padding: 12px; }
+
+    .screen { display: none; flex-direction: column; align-items: center; gap: 18px; }
+    .screen.active { display: flex; }
+
+    h1 {
+      font-size: clamp(2em, 8vw, 3.2em);
+      color: #f5a623;
+      text-shadow: 0 0 30px rgba(245,166,35,0.6);
+      letter-spacing: 2px;
+    }
+    h2 { font-size: 1.4em; color: #ddd; }
+    .subtitle { color: #888; font-size: 0.95em; }
+
+    .btn {
+      padding: 13px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
+      min-width: 200px;
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+    .btn:disabled { opacity: 0.5; cursor: default; }
+    .btn-primary { background: #f5a623; color: #1a1a2e; }
+    .btn-secondary { background: #1e2a40; color: #ddd; border: 2px solid #2d3f5a; }
+    .btn-danger { background: #c0392b; color: white; }
+
+    .room-code {
+      font-size: clamp(1.8em, 7vw, 2.8em);
+      font-weight: 900;
+      letter-spacing: 10px;
+      color: #f5a623;
+      background: #1a2035;
+      padding: 16px 32px;
+      border-radius: 14px;
+      border: 2px solid #f5a623;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: all;
+    }
+    .room-code:hover { background: #1f2845; }
+    .copy-hint { color: #666; font-size: 0.8em; }
+
+    .code-input {
+      font-size: clamp(1.4em, 6vw, 2em);
+      letter-spacing: 8px;
+      text-align: center;
+      width: 220px;
+      padding: 12px 16px;
+      background: #1a2035;
+      border: 2px solid #2d3f5a;
+      color: #f5a623;
+      border-radius: 10px;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .code-input:focus { border-color: #f5a623; }
+
+    #status, #joinStatus {
+      color: #888;
+      font-size: 0.88em;
+      min-height: 22px;
+      transition: color 0.3s;
+    }
+    #status.ok, #joinStatus.ok { color: #55efc4; }
+    #status.err, #joinStatus.err { color: #e17055; }
+
+    .spinner {
+      width: 28px; height: 28px;
+      border: 3px solid #2d3f5a;
+      border-top-color: #f5a623;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* === GAME SCREEN === */
+    #gameScreen { gap: 8px; }
+
+    #hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 6px 8px;
+      background: #1a2035;
+      border-radius: 10px;
+    }
+    .p-hud {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      font-size: 0.82em;
+    }
+    .p-hud.right { align-items: flex-end; }
+    .p-name { font-weight: 700; font-size: 1em; }
+    .p-stats { color: #aaa; }
+    .p-dead { opacity: 0.4; text-decoration: line-through; }
+
+    #canvas-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 600/520;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    /* Mobile controls */
+    #mobile-controls {
+      display: none;
+      grid-template-columns: repeat(3, 56px);
+      grid-template-rows: repeat(3, 56px);
+      gap: 6px;
+      margin-top: 4px;
+    }
+    @media (pointer: coarse) {
+      #mobile-controls { display: grid; }
+    }
+    .mc-btn {
+      background: #1a2035;
+      border: 2px solid #2d3f5a;
+      border-radius: 10px;
+      color: #ddd;
+      font-size: 1.3em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      transition: background 0.1s;
+    }
+    .mc-btn:active { background: #2d3f5a; }
+    .mc-bomb {
+      background: #2d1a00;
+      border-color: #f5a623;
+      color: #f5a623;
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .mc-up    { grid-column: 2; grid-row: 1; }
+    .mc-left  { grid-column: 1; grid-row: 2; }
+    .mc-right { grid-column: 3; grid-row: 2; }
+    .mc-down  { grid-column: 2; grid-row: 3; }
+
+    #controls-hint { color: #555; font-size: 0.78em; }
+
+    /* === GAME OVER OVERLAY === */
+    #gameOver {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 100;
+    }
+    #gameOver.show { display: flex; }
+    #gameOverText { font-size: clamp(1.8em, 7vw, 2.8em); color: #f5a623; text-align: center; }
+
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== WELCOME ===== -->
+  <div id="welcomeScreen" class="screen active">
+    <h1>💣 BomberFriends</h1>
+    <p class="subtitle">Pose des bombes, élimine ton ennemi, gagne !</p>
+    <button class="btn btn-primary" onclick="createGame()">🏠 Créer une partie</button>
+    <button class="btn btn-secondary" onclick="showScreen('joinScreen')">🔗 Rejoindre une partie</button>
+  </div>
+
+  <!-- ===== HOST ===== -->
+  <div id="hostScreen" class="screen">
+    <h2>Ta partie</h2>
+    <p class="subtitle">Envoie ce code à ton ami :</p>
+    <div class="room-code" id="roomCode" onclick="copyCode()" title="Cliquer pour copier">···</div>
+    <p class="copy-hint">👆 Clique pour copier</p>
+    <div id="status">Connexion au serveur...</div>
+    <div class="spinner" id="hostSpinner"></div>
+    <button class="btn btn-secondary" onclick="backToMenu()">← Retour</button>
+  </div>
+
+  <!-- ===== JOIN ===== -->
+  <div id="joinScreen" class="screen">
+    <h2>Rejoindre une partie</h2>
+    <p class="subtitle">Entre le code de ton ami :</p>
+    <input type="text" id="codeInput" class="code-input" maxlength="6" placeholder="XXXXX" autocomplete="off" />
+    <button class="btn btn-primary" onclick="joinGame()">🚀 Se connecter</button>
+    <div id="joinStatus">—</div>
+    <button class="btn btn-secondary" onclick="backToMenu()">← Retour</button>
+  </div>
+
+  <!-- ===== GAME ===== -->
+  <div id="gameScreen" class="screen">
+    <div id="hud">
+      <div class="p-hud" id="hud0">
+        <span class="p-name" style="color:#4fc3f7">🔵 Toi</span>
+        <span class="p-stats" id="stats0">💣×1 💥×2</span>
+      </div>
+      <div style="color:#555; font-size:0.8em" id="centerHud">VS</div>
+      <div class="p-hud right" id="hud1">
+        <span class="p-name" style="color:#ef5350">Ennemi 🔴</span>
+        <span class="p-stats" id="stats1">💣×1 💥×2</span>
+      </div>
+    </div>
+
+    <div id="canvas-wrap">
+      <canvas id="canvas" width="600" height="520"></canvas>
+    </div>
+
+    <div id="mobile-controls">
+      <div class="mc-btn mc-up"    ontouchstart="mobilePress('up')"    ontouchend="mobileRelease('up')">▲</div>
+      <div class="mc-btn mc-bomb"  ontouchstart="mobileBomb()"         ontouchend="">💣</div>
+      <div class="mc-btn mc-left"  ontouchstart="mobilePress('left')"  ontouchend="mobileRelease('left')">◀</div>
+      <div class="mc-btn mc-right" ontouchstart="mobilePress('right')" ontouchend="mobileRelease('right')">▶</div>
+      <div class="mc-btn mc-down"  ontouchstart="mobilePress('down')"  ontouchend="mobileRelease('down')">▼</div>
+    </div>
+
+    <div id="controls-hint">ZQSD / Flèches → bouger &nbsp;|&nbsp; Espace → bombe</div>
+  </div>
+
+</div>
+
+<!-- ===== GAME OVER ===== -->
+<div id="gameOver">
+  <div id="gameOverText">—</div>
+  <div class="btn-row">
+    <button class="btn btn-primary" id="restartBtn" onclick="restartGame()">🔄 Rejouer</button>
+    <button class="btn btn-secondary" onclick="backToMenu()">🏠 Menu</button>
+  </div>
+</div>
+
+<script>
+// =============================================
+// CONSTANTS
+// =============================================
+const TILE  = 40;
+const COLS  = 15;
+const ROWS  = 13;
+const EMPTY = 0, WALL = 1, BRICK = 2;
+const BOMB_FUSE = 3000;   // ms
+const EXP_DUR   = 550;    // ms
+const MOVE_CD   = 155;    // ms between moves
+
+// =============================================
+// STATE
+// =============================================
+let map       = [];
+let players   = [];
+let bombs     = [];
+let explosions = [];
+let powerups  = [];
+let gameOver  = false;
+let winner    = -1;
+let gameStarted = false;
+let gameSeed  = 0;
+
+// Network
+let peer      = null;
+let conn      = null;
+let isHost    = false;
+let myIdx     = 0;
+let theirIdx  = 1;
+
+// Input
+const keys    = {};
+const mobileKeys = {};
+
+// =============================================
+// SEEDED RNG
+// =============================================
+function makeRng(seed) {
+  let s = seed | 0;
+  return () => {
+    s = (Math.imul(s, 1664525) + 1013904223) | 0;
+    return (s >>> 0) / 0x100000000;
+  };
+}
+
+// =============================================
+// MAP
+// =============================================
+function buildMap(seed) {
+  map = [];
+  const rng = makeRng(seed);
+  for (let r = 0; r < ROWS; r++) {
+    map[r] = [];
+    for (let c = 0; c < COLS; c++) {
+      if (r === 0 || r === ROWS-1 || c === 0 || c === COLS-1) {
+        map[r][c] = WALL;
+      } else if (r % 2 === 0 && c % 2 === 0) {
+        map[r][c] = WALL;
+      } else {
+        const corner1 = r <= 2 && c <= 2;
+        const corner2 = r >= ROWS-3 && c >= COLS-3;
+        map[r][c] = (!corner1 && !corner2 && rng() < 0.62) ? BRICK : EMPTY;
+      }
+    }
+  }
+}
+
+// =============================================
+// PLAYERS
+// =============================================
+function initPlayers() {
+  players = [
+    { x:1,       y:1,       alive:true, maxBombs:1, activeBombs:0, radius:2, cd:0, color:'#4fc3f7', dark:'#0288d1' },
+    { x:COLS-2,  y:ROWS-2,  alive:true, maxBombs:1, activeBombs:0, radius:2, cd:0, color:'#ef5350', dark:'#b71c1c' },
+  ];
+}
+
+// =============================================
+// GAME LOGIC
+// =============================================
+function passable(x, y) {
+  if (x < 0 || x >= COLS || y < 0 || y >= ROWS) return false;
+  if (map[y][x] !== EMPTY) return false;
+  if (bombs.some(b => !b.done && b.x === x && b.y === y)) return false;
+  return true;
+}
+
+function tryMove(idx, dx, dy) {
+  const p = players[idx];
+  if (!p.alive || p.cd > 0) return false;
+  const nx = p.x + dx, ny = p.y + dy;
+  if (!passable(nx, ny)) return false;
+  p.x = nx; p.y = ny; p.cd = MOVE_CD;
+  return true;
+}
+
+function tryBomb(idx) {
+  const p = players[idx];
+  if (!p.alive) return null;
+  if (p.activeBombs >= p.maxBombs) return null;
+  if (bombs.some(b => !b.done && b.x === p.x && b.y === p.y)) return null;
+  const b = { x:p.x, y:p.y, timer:BOMB_FUSE, radius:p.radius, owner:idx, done:false, id:Date.now()+Math.random() };
+  bombs.push(b);
+  p.activeBombs++;
+  return b;
+}
+
+function explode(bomb) {
+  if (bomb.done) return;
+  bomb.done = true;
+
+  const cells = [];
+  const dirs  = [[0,0],[1,0],[-1,0],[0,1],[0,-1]];
+
+  for (const [dx,dy] of dirs) {
+    const dist = (dx===0&&dy===0) ? 0 : bomb.radius;
+    for (let i = 0; i <= dist; i++) {
+      const cx = bomb.x + dx*i, cy = bomb.y + dy*i;
+      if (cx<0||cx>=COLS||cy<0||cy>=ROWS) break;
+      if (map[cy][cx] === WALL) break;
+      cells.push({x:cx, y:cy});
+      if (map[cy][cx] === BRICK) {
+        map[cy][cx] = EMPTY;
+        if (makeRng(cx*31+cy*17+gameSeed)() < 0.32) {
+          powerups.push({ x:cx, y:cy, type: makeRng(cx+cy*99)() < 0.5 ? 'bomb' : 'radius' });
+        }
+        break;
+      }
+    }
+  }
+
+  // chain
+  for (const b of bombs) {
+    if (!b.done && cells.some(c => c.x===b.x && c.y===b.y)) explode(b);
+  }
+
+  explosions.push({ cells, t: EXP_DUR });
+
+  for (const p of players) {
+    if (p.alive && cells.some(c => c.x===p.x && c.y===p.y)) p.alive = false;
+  }
+
+  if (players[bomb.owner]) players[bomb.owner].activeBombs = Math.max(0, players[bomb.owner].activeBombs - 1);
+}
+
+function grabPowerups() {
+  for (const p of players) {
+    if (!p.alive) continue;
+    const i = powerups.findIndex(u => u.x===p.x && u.y===p.y);
+    if (i === -1) continue;
+    const u = powerups.splice(i, 1)[0];
+    if (u.type === 'bomb')   p.maxBombs = Math.min(p.maxBombs + 1, 5);
+    if (u.type === 'radius') p.radius   = Math.min(p.radius   + 1, 6);
+  }
+}
+
+function checkWin() {
+  if (gameOver) return;
+  const alive = players.filter(p => p.alive);
+  if (alive.length <= 1) {
+    gameOver = true;
+    winner = alive.length === 1 ? players.indexOf(alive[0]) : -1;
+    showGameOver();
+  }
+}
+
+// =============================================
+// INPUT
+// =============================================
+window.addEventListener('keydown', e => {
+  if (!keys[e.code]) {
+    keys[e.code] = true;
+    if (gameStarted && !gameOver) {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        e.preventDefault();
+        doPlaceBomb();
+      }
+    }
+  }
+  if (e.code === 'Space') e.preventDefault();
+});
+window.addEventListener('keyup', e => { keys[e.code] = false; });
+
+document.getElementById('codeInput').addEventListener('keydown', e => {
+  e.stopPropagation();
+  if (e.key === 'Enter') joinGame();
+});
+
+function getInputDir() {
+  if (keys['KeyZ']       || keys['ArrowUp']    || mobileKeys['up'])    return [0,-1];
+  if (keys['KeyS']       || keys['ArrowDown']  || mobileKeys['down'])  return [0,1];
+  if (keys['KeyQ']       || keys['ArrowLeft']  || mobileKeys['left'])  return [-1,0];
+  if (keys['KeyD']       || keys['ArrowRight'] || mobileKeys['right']) return [1,0];
+  return null;
+}
+
+function doPlaceBomb() {
+  const b = tryBomb(myIdx);
+  if (b) send({ type:'bomb', x:b.x, y:b.y, radius:b.radius, fuse:BOMB_FUSE, placedAt:Date.now(), id:b.id });
+}
+
+// Mobile
+function mobilePress(dir)    { mobileKeys[dir] = true; }
+function mobileRelease(dir)  { mobileKeys[dir] = false; }
+function mobileBomb()        { if (gameStarted && !gameOver) doPlaceBomb(); }
+
+// =============================================
+// RENDERING
+// =============================================
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+
+const TILE_C = { [EMPTY]:'#252535', [WALL]:'#5a6374', [BRICK]:'#c0392b' };
+
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Map
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const t = map[r][c];
+      ctx.fillStyle = TILE_C[t];
+      ctx.fillRect(c*TILE, r*TILE, TILE, TILE);
+
+      if (t !== EMPTY) {
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.fillRect(c*TILE, r*TILE, TILE, 4);
+        ctx.fillRect(c*TILE, r*TILE, 4, TILE);
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.fillRect(c*TILE, r*TILE+TILE-4, TILE, 4);
+        ctx.fillRect(c*TILE+TILE-4, r*TILE, 4, TILE);
+      }
+
+      // subtle grid
+      ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+      ctx.lineWidth = 0.5;
+      ctx.strokeRect(c*TILE+0.25, r*TILE+0.25, TILE-0.5, TILE-0.5);
+    }
+  }
+
+  // Powerups
+  for (const u of powerups) {
+    ctx.fillStyle = u.type==='bomb' ? '#fdcb6e88' : '#a29bfe88';
+    ctx.beginPath();
+    ctx.arc(u.x*TILE+TILE/2, u.y*TILE+TILE/2, TILE*0.32, 0, Math.PI*2);
+    ctx.fill();
+    ctx.font = `${TILE*0.42}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(u.type==='bomb' ? '💣' : '🔥', u.x*TILE+TILE/2, u.y*TILE+TILE/2);
+  }
+
+  // Explosions
+  for (const exp of explosions) {
+    const a = exp.t / EXP_DUR;
+    for (const {x,y} of exp.cells) {
+      ctx.fillStyle = `rgba(255,200,40,${a*0.82})`;
+      ctx.fillRect(x*TILE+1, y*TILE+1, TILE-2, TILE-2);
+      ctx.fillStyle = `rgba(255,255,200,${a*0.55})`;
+      ctx.fillRect(x*TILE+9, y*TILE+9, TILE-18, TILE-18);
+    }
+  }
+
+  // Bombs
+  const now = performance.now();
+  for (const b of bombs) {
+    if (b.done) continue;
+    const ratio = b.timer / BOMB_FUSE;
+    const pulse = 1 + Math.sin(now/180 * (1 + (1-ratio)*2)) * 0.1;
+    const r = TILE*0.33*pulse;
+    const cx = b.x*TILE+TILE/2, cy = b.y*TILE+TILE/2;
+
+    ctx.fillStyle = '#1a1a2e';
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.strokeStyle = ratio < 0.3 ? '#e17055' : '#fdcb6e';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(cx+r*0.5, cy-r);
+    ctx.quadraticCurveTo(cx+r+5, cy-r-6, cx+r, cy-r-12);
+    ctx.stroke();
+
+    if (ratio < 0.35) {
+      ctx.fillStyle = ratio < 0.15 ? '#e74c3c' : '#fdcb6e';
+      ctx.beginPath();
+      ctx.arc(cx+r, cy-r-12, 3.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.font = `bold ${TILE*0.3}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(Math.ceil(b.timer/1000), cx, cy+1);
+  }
+
+  // Players
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+    if (!p.alive) continue;
+    const cx = p.x*TILE+TILE/2, cy = p.y*TILE+TILE/2;
+    const r  = TILE*0.37;
+
+    // shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.28)';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy+r*0.85, r*0.75, r*0.22, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // body
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fill();
+
+    // highlight
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.beginPath();
+    ctx.arc(cx-r*0.28, cy-r*0.28, r*0.38, 0, Math.PI*2);
+    ctx.fill();
+
+    // eyes
+    ctx.fillStyle = '#1a1a2e';
+    ctx.beginPath();
+    ctx.arc(cx-r*0.3, cy-r*0.1, r*0.14, 0, Math.PI*2);
+    ctx.arc(cx+r*0.3, cy-r*0.1, r*0.14, 0, Math.PI*2);
+    ctx.fill();
+
+    // label
+    ctx.fillStyle = i===myIdx ? '#fdcb6e' : '#dfe6e9';
+    ctx.font = `bold 9px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(i===myIdx ? 'TOI' : 'ENM', cx, cy-r-2);
+  }
+
+  // HUD stats
+  for (let i = 0; i < 2; i++) {
+    const p = players[i];
+    const avail = p.maxBombs - p.activeBombs;
+    const el = document.getElementById('stats' + (i===myIdx ? 0 : 1));
+    if (el) el.textContent = `💣×${avail}/${p.maxBombs} 💥×${p.radius}`;
+    const hudEl = document.getElementById('hud' + (i===myIdx ? 0 : 1));
+    if (hudEl) {
+      hudEl.querySelector('.p-name').classList.toggle('p-dead', !p.alive);
+    }
+  }
+}
+
+// =============================================
+// GAME LOOP
+// =============================================
+let lastTs  = 0;
+let loopId  = null;
+
+function loop(ts) {
+  const dt = Math.min(ts - lastTs, 80);
+  lastTs = ts;
+
+  if (!gameOver) {
+    for (const p of players) p.cd = Math.max(0, p.cd - dt);
+
+    // My movement
+    if (gameStarted) {
+      const dir = getInputDir();
+      if (dir) {
+        const [dx,dy] = dir;
+        const p = players[myIdx];
+        if (p.alive && p.cd === 0) {
+          if (tryMove(myIdx, dx, dy)) {
+            send({ type:'move', x:p.x, y:p.y });
+          }
+        }
+      }
+    }
+
+    for (const b of bombs) {
+      if (!b.done) { b.timer -= dt; if (b.timer <= 0) explode(b); }
+    }
+    bombs        = bombs.filter(b => !b.done);
+    explosions   = explosions.filter(e => { e.t -= dt; return e.t > 0; });
+
+    grabPowerups();
+    checkWin();
+  }
+
+  render();
+  loopId = requestAnimationFrame(loop);
+}
+
+// =============================================
+// NETWORKING
+// =============================================
+function send(msg) {
+  if (conn && conn.open) conn.send(msg);
+}
+
+function onData(msg) {
+  switch (msg.type) {
+    case 'start':
+      gameSeed = msg.seed;
+      buildMap(gameSeed);
+      initPlayers();
+      startGame();
+      break;
+
+    case 'move':
+      if (players[theirIdx]) { players[theirIdx].x = msg.x; players[theirIdx].y = msg.y; }
+      break;
+
+    case 'bomb': {
+      if (!players[theirIdx]) break;
+      const elapsed = Date.now() - msg.placedAt;
+      const fuse    = Math.max(500, msg.fuse - elapsed);
+      bombs.push({ x:msg.x, y:msg.y, timer:fuse, radius:msg.radius, owner:theirIdx, done:false, id:msg.id });
+      players[theirIdx].activeBombs++;
+      break;
+    }
+
+    case 'restart':
+      gameSeed = msg.seed;
+      buildMap(gameSeed);
+      initPlayers();
+      startGame();
+      break;
+  }
+}
+
+function onDisconnect() {
+  if (gameStarted) {
+    document.getElementById('gameOverText').textContent = '😢 Connexion perdue';
+    document.getElementById('gameOver').classList.add('show');
+  }
+}
+
+// =============================================
+// PEER SETUP
+// =============================================
+function makePeer(id) {
+  return new Promise((resolve, reject) => {
+    const p = new Peer(id, {
+      debug: 0,
+      config: { iceServers: [{ urls:'stun:stun.l.google.com:19302' }] }
+    });
+    p.on('open', resolve);
+    p.on('error', reject);
+    peer = p;
+  });
+}
+
+// =============================================
+// MENU ACTIONS
+// =============================================
+async function createGame() {
+  showScreen('hostScreen');
+  setStatus('status', 'Connexion au serveur...', '');
+  document.getElementById('hostSpinner').style.display = 'block';
+  document.getElementById('roomCode').textContent = '···';
+
+  try {
+    isHost = true; myIdx = 0; theirIdx = 1;
+    const hostId = 'BMB' + Math.random().toString(36).substr(2,5).toUpperCase();
+    await makePeer(hostId);
+
+    const code = hostId.replace('BMB','');
+    document.getElementById('roomCode').textContent = code;
+    setStatus('status', 'En attente de ton ami...', '');
+
+    peer.on('connection', c => {
+      conn = c;
+      setStatus('status', 'Ami connecté ! Lancement...', 'ok');
+      document.getElementById('hostSpinner').style.display = 'none';
+
+      c.on('open', () => {
+        gameSeed = (Math.random() * 0xFFFFFF) | 0;
+        buildMap(gameSeed);
+        initPlayers();
+        send({ type:'start', seed:gameSeed });
+        startGame();
+      });
+      c.on('data',  onData);
+      c.on('close', onDisconnect);
+      c.on('error', onDisconnect);
+    });
+  } catch (e) {
+    setStatus('status', 'Erreur de connexion. Réessaie.', 'err');
+    document.getElementById('hostSpinner').style.display = 'none';
+  }
+}
+
+async function joinGame() {
+  const code = document.getElementById('codeInput').value.toUpperCase().replace(/\s/g,'');
+  if (code.length < 4) { setStatus('joinStatus','Code invalide','err'); return; }
+
+  setStatus('joinStatus', 'Connexion...', '');
+
+  try {
+    isHost = false; myIdx = 1; theirIdx = 0;
+
+    if (!peer || peer.destroyed) await makePeer(undefined);
+
+    conn = peer.connect('BMB'+code, { reliable:true });
+    conn.on('open',  () => setStatus('joinStatus','Connecté ! En attente du démarrage...','ok'));
+    conn.on('data',  onData);
+    conn.on('close', onDisconnect);
+    conn.on('error', e => setStatus('joinStatus','Erreur : '+e.message,'err'));
+
+    peer.on('error', () => setStatus('joinStatus','Impossible de se connecter.','err'));
+  } catch (e) {
+    setStatus('joinStatus', 'Erreur. Vérifie le code.', 'err');
+  }
+}
+
+function startGame() {
+  gameOver    = false;
+  winner      = -1;
+  bombs       = [];
+  explosions  = [];
+  powerups    = [];
+  gameStarted = true;
+
+  document.getElementById('gameOver').classList.remove('show');
+  showScreen('gameScreen');
+
+  if (loopId) cancelAnimationFrame(loopId);
+  lastTs = performance.now();
+  loopId = requestAnimationFrame(loop);
+}
+
+function restartGame() {
+  if (!isHost) return;
+  if (!conn || !conn.open) { backToMenu(); return; }
+  gameSeed = (Math.random() * 0xFFFFFF) | 0;
+  buildMap(gameSeed);
+  initPlayers();
+  send({ type:'restart', seed:gameSeed });
+  startGame();
+}
+
+function backToMenu() {
+  if (peer) { peer.destroy(); peer = null; }
+  conn = null; gameStarted = false; gameOver = false;
+  if (loopId) { cancelAnimationFrame(loopId); loopId = null; }
+  document.getElementById('gameOver').classList.remove('show');
+  showScreen('welcomeScreen');
+}
+
+// =============================================
+// UI HELPERS
+// =============================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function setStatus(id, text, cls) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className   = cls;
+}
+
+function showGameOver() {
+  let text;
+  if      (winner === myIdx) text = '🎉 Tu as gagné !';
+  else if (winner === -1)    text = '🤝 Égalité !';
+  else                       text = '💀 Tu as perdu...';
+
+  document.getElementById('gameOverText').textContent = text;
+
+  const btn = document.getElementById('restartBtn');
+  if (isHost) {
+    btn.textContent = '🔄 Rejouer';
+    btn.disabled    = false;
+  } else {
+    btn.textContent = '⏳ En attente de l\'hôte...';
+    btn.disabled    = true;
+  }
+  document.getElementById('gameOver').classList.add('show');
+}
+
+function copyCode() {
+  const code = document.getElementById('roomCode').textContent;
+  if (navigator.clipboard) navigator.clipboard.writeText(code);
+  document.getElementById('roomCode').style.background = '#1f3a1f';
+  setTimeout(() => document.getElementById('roomCode').style.background = '', 600);
+}
+</script>
+</body>
+</html>
