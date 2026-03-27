@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /icsf91/
+Disallow: /bomber.html
+
+Sitemap: https://icsf91.fr/sitemap.xml
