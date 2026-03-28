@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Institut — ICSF · Institut de Cancérologie du Sud Francilien</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d2b45;
+  --navy-mid: #1a3d5c;
+  --teal: #1d6e72;
+  --teal-light: #e8f4f5;
+  --gold: #b8882a;
+  --gold-light: #f5ead8;
+  --warm-white: #faf9f7;
+  --stone: #f0ece6;
+  --text: #2c3e50;
+  --text-soft: #5a6e82;
+  --border: #dce4ec;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm-white);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ━━━━ NAV ━━━━ */
+nav { position: sticky; top: 0; z-index: 200; background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; height: 64px; }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; color: #fff; letter-spacing: 0.04em; text-decoration: none; flex-shrink: 0; }
+.nav-logo em { color: var(--gold); font-style: normal; }
+.nav-separator { width: 1px; height: 28px; background: var(--gold); opacity: 0.5; margin: 0 1.2rem; flex-shrink: 0; }
+.nav-institut { display: none; font-size: 0.52rem; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.55); line-height: 1.45; font-weight: 500; flex-shrink: 0; }
+.nav-links { display: flex; gap: 0; flex: 1; justify-content: flex-start; align-items: center; }
+.nav-links > a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0 0.75rem; height: 64px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.nav-links > a:hover { color: #fff; border-bottom-color: var(--gold); }
+.nav-dropdown { position: relative; display: flex; align-items: center; }
+.nav-dropdown > a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0 0.75rem; height: 64px; display: flex; align-items: center; gap: 0.3rem; cursor: pointer; white-space: nowrap; transition: color 0.2s; border-bottom: 2px solid transparent; }
+.nav-dropdown > a:hover, .nav-dropdown:hover > a { color: #fff; border-bottom-color: var(--gold); }
+.nav-dropdown-menu { display: none; position: absolute; top: 64px; right: 0; background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.1); border-top: 2px solid var(--gold); min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 300; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block !important; height: auto !important; padding: 0.7rem 1.2rem !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; font-size: 0.72rem; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; }
+.nav-dropdown-menu a:last-child { border-bottom: none !important; }
+.nav-dropdown-menu a:hover { background: rgba(255,255,255,0.05); color: #fff !important; }
+.nav-rdv-btn { display: inline-flex !important; align-items: center; background: var(--gold) !important; color: white !important; font-weight: 700 !important; padding: 0.5rem 1.1rem !important; height: auto !important; border-radius: 2px; border-bottom: none !important; margin-left: 0.5rem; transition: background 0.2s !important; text-decoration: none; }
+.nav-rdv-btn:hover { background: #a07020 !important; }
+.nav-mobile-menu { display: none; flex-direction: column; justify-content: center; gap: 5px; background: transparent; border: none; cursor: pointer; padding: 0.5rem; margin-left: auto; }
+.nav-mobile-menu span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; }
+.nav-overlay { display: none; position: fixed; inset: 0; background: var(--navy); z-index: 500; flex-direction: column; padding: 0; overflow-y: auto; }
+.nav-overlay.open { display: flex; }
+.nav-overlay-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.nav-overlay-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #fff; font-weight: 500; }
+.nav-overlay-logo em { color: var(--gold); font-style: normal; }
+.nav-overlay-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 1.1rem; padding: 0.3rem 0.65rem; cursor: pointer; border-radius: 2px; }
+.nav-overlay a { display: block; padding: 0.85rem 2rem; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-overlay a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-overlay a.rdv { color: var(--gold); font-weight: 700; margin-bottom: 0.5rem; font-size: 1.25rem; }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-mobile-menu { display: flex; } }
+
+/* ━━━━ CONTAINER ━━━━ */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; overflow-x: hidden; }
+
+/* ━━━━ SECTION CARDS ━━━━ */
+.section-card { background: white; border: 1px solid var(--border); border-radius: 3px; margin: 2.5rem auto; max-width: 1100px; overflow: hidden; box-shadow: 0 2px 16px rgba(13,43,69,0.06); opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s forwards; }
+.section-card:nth-child(1) { animation-delay: 0.1s; }
+.section-card:nth-child(2) { animation-delay: 0.18s; }
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
+.section-stripe { display: flex; align-items: stretch; }
+.section-accent { width: 6px; flex-shrink: 0; }
+.section-body { flex: 1; padding: 2.5rem 3rem; }
+.section-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+.section-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.6rem; color: var(--navy); }
+.section-tagline { font-size: 1.05rem; color: var(--text-soft); font-weight: 300; margin-bottom: 2rem; font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; }
+.content-block { margin-bottom: 2rem; }
+.content-block:last-child { margin-bottom: 0; }
+p { margin-bottom: 0.9rem; color: var(--text); }
+p:last-child { margin-bottom: 0; }
+
+/* ━━━━ HUB CARDS ━━━━ */
+.hub-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.8rem; margin-top: 2rem; }
+.hub-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s; }
+.hub-card:hover { box-shadow: 0 10px 36px rgba(13,43,69,0.13); transform: translateY(-4px); }
+.hub-card-header { padding: 2rem 2rem 1.5rem; display: flex; align-items: flex-start; gap: 1.2rem; border-bottom: 3px solid var(--gold); }
+.hub-card-icon { font-size: 2.2rem; flex-shrink: 0; line-height: 1; margin-top: 0.1rem; }
+.hub-card-header-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 600; color: var(--navy); line-height: 1.15; margin-bottom: 0.25rem; }
+.hub-card-header-text p { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-soft); font-weight: 600; margin: 0; }
+.hub-card-body { padding: 1.5rem 2rem 2rem; flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+.hub-card-body p { font-size: 0.92rem; color: var(--text-soft); line-height: 1.7; margin: 0; flex: 1; }
+.hub-card-links { display: flex; flex-direction: column; gap: 0.4rem; }
+.hub-card-link { display: flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy-mid); text-decoration: none; padding: 0.35rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s, padding-left 0.2s; }
+.hub-card-link:last-child { border-bottom: none; }
+.hub-card-link:hover { color: var(--gold); padding-left: 0.4rem; }
+.hub-card-link::before { content: '→'; color: var(--gold); font-size: 0.9rem; flex-shrink: 0; }
+.hub-cta { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.8rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 3px; transition: color 0.2s; }
+.hub-card:hover .hub-cta { color: var(--gold); }
+
+/* ━━━━ HIGHLIGHT ━━━━ */
+.highlight { background: var(--gold-light); border-left: 4px solid var(--gold); padding: 1.2rem 1.5rem; border-radius: 0 3px 3px 0; margin-bottom: 1.5rem; }
+
+/* ━━━━ FOOTER ━━━━ */
+footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 2.5rem 2rem; font-size: 0.82rem; margin-top: 4rem; }
+footer strong { color: rgba(255,255,255,0.85); }
+
+/* ━━━━ RESPONSIVE ━━━━ */
+@media (max-width: 768px) {
+  .hub-grid { grid-template-columns: 1fr; }
+  .section-body { padding: 1.8rem 1.5rem; }
+  .hub-card-header { padding: 1.5rem 1.5rem 1.2rem; }
+  .hub-card-body { padding: 1.2rem 1.5rem 1.5rem; }
+}
+@media (max-width: 500px) {
+  .section-body { padding: 1.4rem 1.2rem; }
+  .section-body h2 { font-size: 1.5rem; }
+}
+section[id], div[id] { scroll-margin-top: 72px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">ICS<em>F</em></a>
+    <div class="nav-separator"></div>
+    <span class="nav-institut">Institut de Cancérologie<br>du Sud Francilien</span>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <div class="nav-dropdown">
+        <a href="institut.html">L'Institut ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="equipe.html">👥 Équipe</a>
+          <a href="etablissements.html">📍 Nos centres</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="traitements.html">Traitements ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="traitements.html">💉 Traitements</a>
+          <a href="hospitalisation.html">🏥 Hospitalisation</a>
+          <a href="soins-support.html">🤝 Soins de support</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="expertises.html">Expertises ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="irm-linac.html">🔬 IRM-Linac</a>
+          <a href="reirradiation.html">🔄 Réirradiation</a>
+          <a href="oncogenetique.html">🧬 Oncogénétique</a>
+        </div>
+      </div>
+      <a href="centre-sein.html" style="color:#e8649a;">🎗️ Centre Sein</a>
+      <a href="index.html#contact" class="nav-rdv-btn" style="margin-left:auto;">📅 Prendre RDV</a>
+    </div>
+    <button class="nav-mobile-menu" onclick="document.getElementById('mobileNav').classList.add('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-overlay" id="mobileNav">
+  <div class="nav-overlay-header">
+    <div class="nav-overlay-logo">ICS<em>F</em></div>
+    <button class="nav-overlay-close" onclick="document.getElementById('mobileNav').classList.remove('open')">✕</button>
+  </div>
+  <a class="rdv" href="index.html#contact" onclick="document.getElementById('mobileNav').classList.remove('open')">📞 Prendre RDV — sous 48h</a>
+  <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:0.75rem 2rem 0.25rem;">L'Institut</div>
+  <a href="equipe.html" onclick="document.getElementById('mobileNav').classList.remove('open')">👥 Équipe</a>
+  <a href="etablissements.html" onclick="document.getElementById('mobileNav').classList.remove('open')">📍 Nos centres</a>
+  <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:0.75rem 2rem 0.25rem;">Traitements</div>
+  <a href="traitements.html" onclick="document.getElementById('mobileNav').classList.remove('open')">💉 Traitements</a>
+  <a href="hospitalisation.html" onclick="document.getElementById('mobileNav').classList.remove('open')">🏥 Hospitalisation</a>
+  <a href="soins-support.html" onclick="document.getElementById('mobileNav').classList.remove('open')">🤝 Soins de support</a>
+  <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:0.75rem 2rem 0.25rem;">Expertises</div>
+  <a href="irm-linac.html" onclick="document.getElementById('mobileNav').classList.remove('open')">🔬 IRM-Linac</a>
+  <a href="reirradiation.html" onclick="document.getElementById('mobileNav').classList.remove('open')">🔄 Réirradiation</a>
+  <a href="oncogenetique.html" onclick="document.getElementById('mobileNav').classList.remove('open')">🧬 Oncogénétique</a>
+  <a href="centre-sein.html" onclick="document.getElementById('mobileNav').classList.remove('open')" style="color:#e8649a;">🎗️ Centre Sein</a>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="section-card">
+    <div class="section-stripe">
+      <div class="section-accent" style="background: var(--navy-mid);"></div>
+      <div class="section-body">
+        <p class="section-label" style="color: var(--navy-mid);">L'Institut · ICSF</p>
+        <h2>Un institut dédié à l'excellence en oncologie</h2>
+        <p class="section-tagline">L'ICSF réunit sous un même toit les meilleures compétences en oncologie médicale et en radiothérapie, pour une prise en charge globale, pluridisciplinaire et humaine.</p>
+        <div class="content-block">
+          <div class="highlight">
+            Chaque dossier est discuté collégialement en <strong>Réunion de Concertation Pluridisciplinaire (RCP)</strong> avant toute décision thérapeutique — oncologues, radiothérapeutes, chirurgiens, radiologues et spécialistes d'organes, tous autour de la table pour vous.
+          </div>
+          <p>Fondé par des praticiens formés dans les plus grands centres français et européens, l'ICSF propose l'accès aux traitements les plus innovants — IRM-Linac, réirradiation stéréotaxique, immunothérapie, oncogénétique — à proximité immédiate de chez vous, en Île-de-France.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUB CARDS -->
+  <div class="section-card">
+    <div class="section-stripe">
+      <div class="section-accent" style="background: var(--gold);"></div>
+      <div class="section-body">
+        <p class="section-label" style="color: var(--gold);">Découvrir · L'Institut</p>
+        <h2>L'Institut en deux volets</h2>
+        <p class="section-tagline">Rencontrez l'équipe qui prendra soin de vous, et retrouvez le centre le plus proche.</p>
+
+        <div class="hub-grid">
+
+          <a class="hub-card" href="equipe.html">
+            <div class="hub-card-header">
+              <div class="hub-card-icon">👥</div>
+              <div class="hub-card-header-text">
+                <h3>L'Équipe Médicale</h3>
+                <p>Oncologues · Radiothérapeutes · Spécialistes</p>
+              </div>
+            </div>
+            <div class="hub-card-body">
+              <p>Des oncologues médicaux, des oncologues radiothérapeutes et des spécialistes associés, tous formés dans les plus grands centres français. Une équipe soudée, pluridisciplinaire, engagée pour chaque patient.</p>
+              <div class="hub-card-links">
+                <span class="hub-card-link">Oncologues médicaux</span>
+                <span class="hub-card-link">Oncologues radiothérapeutes</span>
+                <span class="hub-card-link">Spécialistes associés</span>
+              </div>
+              <span class="hub-cta">Voir l'équipe →</span>
+            </div>
+          </a>
+
+          <a class="hub-card" href="etablissements.html">
+            <div class="hub-card-header">
+              <div class="hub-card-icon">📍</div>
+              <div class="hub-card-header-text">
+                <h3>Nos Centres</h3>
+                <p>Île-de-France · Accessibilité · Proximité</p>
+              </div>
+            </div>
+            <div class="hub-card-body">
+              <p>L'ICSF est présent sur plusieurs sites en Île-de-France : Quincy-sous-Sénart, Ris-Orangis, Férolles-Attilly et au-delà. Le même niveau d'excellence, partout, près de chez vous.</p>
+              <div class="hub-card-links">
+                <span class="hub-card-link">Centres de radiothérapie</span>
+                <span class="hub-card-link">Consultations d'oncologie</span>
+                <span class="hub-card-link">Accès et stationnement</span>
+              </div>
+              <span class="hub-cta">Voir nos centres →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Institut de Cancérologie du Sud Francilien (ICSF)</strong><br>
+  Oncologie médicale · Radiothérapie · Île-de-France<br>
+  <span style="font-size:0.75rem;opacity:0.6;margin-top:0.4rem;display:block;">© 2025 ICSF — Tous droits réservés</span>
+</footer>
+
+</body>
+</html>
