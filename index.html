@@ -1948,13 +1948,14 @@ const _plId = (function() {
   const n = new Date();
   return n.getMonth() === 2 || (n.getMonth() === 3 && n.getDate() === 1) ? 'preloader-mb' : 'preloader';
 })();
-/* Preloader une seule fois par session */
-if (sessionStorage.getItem('pl_shown')) {
+/* Preloader : skip si on vient d'une page interne du site */
+const _skipPl = document.referrer &&
+  (document.referrer.includes(location.hostname) || document.referrer.includes('icsf91.fr'));
+if (_skipPl) {
   document.getElementById('preloader').style.display = 'none';
   document.getElementById('preloader-mb').style.display = 'none';
   document.body.style.overflow = '';
 } else {
-  sessionStorage.setItem('pl_shown', '1');
   window.addEventListener('load', () => {
     setTimeout(() => {
       document.getElementById(_plId).classList.add('open');
