@@ -1713,7 +1713,7 @@ nav.scrolled {
         </div>
       </div>
       <div class="nav-dropdown">
-        <a href="traitements.html">Traitements ▾</a>
+        <a href="traitements.html">Votre parcours de soins ▾</a>
         <div class="nav-dropdown-menu">
           <a href="traitements.html">💉 Traitements</a>
           <a href="hospitalisation.html">🏥 Hospitalisation</a>
@@ -1950,16 +1950,24 @@ const _plId = (function() {
   const n = new Date();
   return n.getMonth() === 2 || (n.getMonth() === 3 && n.getDate() === 1) ? 'preloader-mb' : 'preloader';
 })();
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById(_plId).classList.add('open');
+/* Preloader une seule fois par session */
+if (sessionStorage.getItem('pl_shown')) {
+  document.getElementById('preloader').style.display = 'none';
+  document.getElementById('preloader-mb').style.display = 'none';
+  document.body.style.overflow = '';
+} else {
+  sessionStorage.setItem('pl_shown', '1');
+  window.addEventListener('load', () => {
     setTimeout(() => {
-      const pl = document.getElementById(_plId);
-      if (pl) pl.style.display = 'none';
-      document.body.style.overflow = '';
-    }, 1500);
-  }, _plId === 'preloader-mb' ? 9800 : 5500);
-});
+      document.getElementById(_plId).classList.add('open');
+      setTimeout(() => {
+        const pl = document.getElementById(_plId);
+        if (pl) pl.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 1500);
+    }, _plId === 'preloader-mb' ? 9800 : 5500);
+  });
+}
 
 /* ━━━ TREATMENT TABS ━━━ */
 function showTreat(id) {
