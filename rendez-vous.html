@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Votre Parcours de Soins — ICSF · Institut de Cancérologie du Sud Francilien</title>
+<title>Prendre Rendez-vous — ICSF · Institut de Cancérologie du Sud Francilien</title>
+<meta name="description" content="Prenez rendez-vous à l'ICSF dans les 48h : par téléphone, en ligne via Doctolib, ou par email. Notre secrétariat vous accueille du lundi au vendredi, 8h–18h.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -52,6 +53,7 @@ nav { position: sticky; top: 0; z-index: 200; background: var(--navy); border-bo
 .section-card { background: white; border: 1px solid var(--border); border-radius: 3px; margin: 2.5rem auto; max-width: 1100px; overflow: hidden; box-shadow: 0 2px 16px rgba(13,43,69,0.06); opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s forwards; }
 .section-card:nth-child(1) { animation-delay: 0.1s; }
 .section-card:nth-child(2) { animation-delay: 0.18s; }
+.section-card:nth-child(3) { animation-delay: 0.26s; }
 @keyframes fadeUp { to { opacity: 1; transform: none; } }
 .section-stripe { display: flex; align-items: stretch; }
 .section-accent { width: 6px; flex-shrink: 0; }
@@ -59,29 +61,34 @@ nav { position: sticky; top: 0; z-index: 200; background: var(--navy); border-bo
 .section-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
 .section-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.6rem; color: var(--navy); }
 .section-tagline { font-size: 1.05rem; color: var(--text-soft); font-weight: 300; margin-bottom: 2rem; font-style: italic; border-left: 3px solid var(--gold); padding-left: 1rem; }
-.content-block { margin-bottom: 2rem; }
-.content-block:last-child { margin-bottom: 0; }
 p { margin-bottom: 0.9rem; color: var(--text); }
 p:last-child { margin-bottom: 0; }
 .highlight { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 1.2rem 1.5rem; border-radius: 0 3px 3px 0; margin-bottom: 1.5rem; }
 
-/* HUB CARDS */
-.hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
-.hub-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s; }
-.hub-card:hover { box-shadow: 0 10px 36px rgba(13,43,69,0.13); transform: translateY(-4px); }
-.hub-card-header { padding: 1.8rem 1.6rem 1.3rem; border-bottom: 3px solid var(--teal); }
-.hub-card-icon { font-size: 2rem; line-height: 1; margin-bottom: 0.8rem; display: block; }
-.hub-card-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 600; color: var(--navy); line-height: 1.15; margin-bottom: 0.2rem; }
-.hub-card-header p { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); font-weight: 600; margin: 0; }
-.hub-card-body { padding: 1.3rem 1.6rem 1.8rem; flex: 1; display: flex; flex-direction: column; gap: 1.2rem; }
-.hub-card-body p { font-size: 0.88rem; color: var(--text-soft); line-height: 1.7; margin: 0; flex: 1; }
-.hub-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
-.hub-card:hover .hub-cta { color: var(--gold); border-color: var(--gold); }
+/* CONTACT BOXES */
+.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.contact-box { background: var(--navy); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 1.6rem 1.8rem; }
+.contact-box-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+.contact-box a { color: white; text-decoration: none; }
+.contact-box a:hover { text-decoration: underline; }
+.contact-box-doctolib { border-color: rgba(23,131,255,0.35); background: rgba(23,131,255,0.12); }
+.contact-box-doctolib .contact-box-label { color: #60aeff; }
+.doctolib-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #1783FF; color: white !important; font-size: 0.8rem; font-weight: 700; padding: 0.6rem 1.4rem; border-radius: 2px; text-decoration: none !important; letter-spacing: 0.03em; margin-top: 0.6rem; transition: background 0.2s; }
+.doctolib-btn:hover { background: #1269cc !important; text-decoration: none !important; }
+
+/* TESTIMONIAL */
+.testimonial { text-align: center; padding: 3.5rem 2rem; border-top: 1px solid var(--border); }
+.testimonial-divider { width: 60px; height: 1px; background: var(--gold); opacity: 0.6; margin: 0 auto 2.5rem; }
+.testimonial-slogan { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 500; color: var(--navy); letter-spacing: 0.08em; margin-bottom: 3rem; line-height: 1.3; }
+.testimonial-slogan em { color: var(--gold); font-style: italic; }
+.testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); opacity: 0.4; line-height: 0.5; margin-bottom: 1.5rem; }
+.testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--text-soft); font-style: italic; line-height: 1.9; max-width: 560px; margin: 0 auto 1.5rem; }
+.testimonial-author { font-size: 0.7rem; color: rgba(44,62,80,0.45); letter-spacing: 0.14em; text-transform: uppercase; }
 
 footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 2.5rem 2rem; font-size: 0.82rem; margin-top: 4rem; }
 footer strong { color: rgba(255,255,255,0.85); }
-@media (max-width: 900px) { .hub-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .hub-grid { grid-template-columns: 1fr; } .section-body { padding: 1.8rem 1.5rem; } }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } .section-body { padding: 1.8rem 1.5rem; } }
 @media (max-width: 500px) { .section-body h2 { font-size: 1.5rem; } }
 div[id] { scroll-margin-top: 72px; }
 </style>
@@ -153,68 +160,50 @@ div[id] { scroll-margin-top: 72px; }
 
   <div class="section-card">
     <div class="section-stripe">
-      <div class="section-accent" style="background: var(--teal);"></div>
+      <div class="section-accent" style="background: var(--gold);"></div>
       <div class="section-body">
-        <p class="section-label" style="color: var(--teal);">Votre parcours · ICSF</p>
-        <h2>Un accompagnement global, du diagnostic au suivi</h2>
-        <p class="section-tagline">À l'ICSF, votre parcours de soins est pensé comme un tout : traitement, hospitalisation et soutien, coordonnés par une équipe pluridisciplinaire dédiée.</p>
-        <div class="content-block">
-          <div class="highlight">
-            Chaque patient bénéficie d'un <strong>parcours personnalisé</strong>, discuté en Réunion de Concertation Pluridisciplinaire (RCP) avant toute décision. Vous n'êtes jamais seul face à votre traitement.
+        <p class="section-label" style="color: var(--gold);">Prendre rendez-vous · ICSF <span style="background:var(--gold);color:white;font-size:0.65rem;font-weight:700;padding:0.2rem 0.7rem;border-radius:2px;letter-spacing:0.05em;margin-left:0.5rem;">⚡ 48h</span></p>
+        <h2>Un cancer ne peut pas attendre.<br><em style="font-style:italic;color:var(--gold);">Nous non plus.</em></h2>
+        <p class="section-tagline">Que vous veniez d'être diagnostiqué, que votre médecin vous adresse à nous, ou que vous souhaitiez un second avis — notre secrétariat vous propose un rendez-vous dans les 48 heures.</p>
+        <div class="highlight">
+          Notre équipe s'engage à vous répondre rapidement. <strong>Trois façons de nous contacter</strong> — par téléphone, en ligne via Doctolib, ou par email.
+        </div>
+
+        <div class="contact-grid">
+
+          <div class="contact-box">
+            <div class="contact-box-label">📞 Secrétariat</div>
+            <a href="tel:0173228406" style="font-size:1.2rem;font-weight:700;display:block;margin-bottom:0.2rem;">01 73 22 84 06</a>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.55);">Lundi – Vendredi · 8h–18h</div>
           </div>
-          <p>De la première consultation jusqu'au suivi post-traitement, nos équipes coordonnent chaque étape : choix thérapeutiques, organisation des séances, hospitalisation si nécessaire, et soins de support pour préserver votre qualité de vie tout au long du parcours.</p>
+
+          <div class="contact-box contact-box-doctolib">
+            <div class="contact-box-label">🗓️ Rendez-vous en ligne</div>
+            <div style="font-size:0.88rem;color:rgba(255,255,255,0.75);margin-bottom:0.2rem;">Plusieurs médecins disponibles</div>
+            <a href="equipe.html" class="doctolib-btn">Accéder à Doctolib →</a>
+          </div>
+
+          <div class="contact-box">
+            <div class="contact-box-label">✉️ Email</div>
+            <a href="mailto:secretariat@icsf91.fr" style="font-size:0.92rem;">secretariat@icsf91.fr</a>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
   <div class="section-card">
-    <div class="section-stripe">
-      <div class="section-accent" style="background: var(--gold);"></div>
-      <div class="section-body">
-        <p class="section-label" style="color: var(--gold);">Les trois piliers de votre parcours</p>
-        <h2>À chaque étape, une réponse adaptée</h2>
-        <p class="section-tagline">Traitements, hospitalisation, soins de support : trois volets complémentaires pour une prise en charge complète.</p>
-
-        <div class="hub-grid">
-
-          <a class="hub-card" href="traitements.html">
-            <div class="hub-card-header">
-              <span class="hub-card-icon">💉</span>
-              <h3>Traitements</h3>
-              <p>Chimiothérapie · Immunothérapie · Radiothérapie</p>
-            </div>
-            <div class="hub-card-body">
-              <p>L'ICSF propose l'ensemble des traitements médicaux et radiothérapeutiques contre le cancer — chimiothérapie, immunothérapie, thérapies ciblées, radiothérapie de précision — selon les recommandations nationales les plus récentes.</p>
-              <span class="hub-cta">Voir les traitements →</span>
-            </div>
-          </a>
-
-          <a class="hub-card" href="hospitalisation.html">
-            <div class="hub-card-header">
-              <span class="hub-card-icon">🏥</span>
-              <h3>Hospitalisation</h3>
-              <p>Hôpital de jour · Suivi · Urgences oncologiques</p>
-            </div>
-            <div class="hub-card-body">
-              <p>Nos unités d'hôpital de jour permettent la réalisation des traitements dans un cadre adapté, avec un suivi médical et infirmier rigoureux. Les urgences oncologiques sont prises en charge en lien direct avec nos équipes.</p>
-              <span class="hub-cta">En savoir plus →</span>
-            </div>
-          </a>
-
-          <a class="hub-card" href="soins-support.html">
-            <div class="hub-card-header">
-              <span class="hub-card-icon">🤝</span>
-              <h3>Soins de support</h3>
-              <p>Psychologie · Nutrition · Douleur · Bien-être</p>
-            </div>
-            <div class="hub-card-body">
-              <p>Les soins de support accompagnent le traitement pour préserver la qualité de vie : soutien psychologique, suivi nutritionnel, prise en charge de la douleur, accompagnement social et activité physique adaptée.</p>
-              <span class="hub-cta">En savoir plus →</span>
-            </div>
-          </a>
-
-        </div>
+    <div class="section-body" style="padding: 0;">
+      <div class="testimonial">
+        <div class="testimonial-divider"></div>
+        <p class="testimonial-slogan">Écouter. <em>Soigner.</em> Accompagner.</p>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">
+          On dit que 50% de la guérison d'une maladie, c'est de trouver un médecin qui vous écoute, qui vous donne l'espoir et en qui vous avez confiance. Les 50% restants, c'est son professionnalisme — c'est ce que j'ai trouvé chez mon oncologue.
+        </p>
+        <p class="testimonial-author">— Patiente · Centre Sein · ICSF</p>
+        <div class="testimonial-divider" style="margin-top:2.5rem;"></div>
       </div>
     </div>
   </div>
