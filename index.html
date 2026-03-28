@@ -986,48 +986,15 @@ details > div { padding: 0 0 1.2rem; font-size: 0.92rem; color: var(--text-soft)
   background: white;
   border-radius: 2px;
 }
-.nav-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--navy);
-  z-index: 300;
-  flex-direction: column;
-  padding: 1.5rem 2rem;
-  overflow-y: auto;
-}
+.nav-overlay { display: none; position: fixed; inset: 0; background: var(--navy); z-index: 500; flex-direction: column; overflow-y: auto; }
 .nav-overlay.open { display: flex; }
-.nav-overlay-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-.nav-overlay-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  color: white;
-}
+.nav-overlay-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.nav-overlay-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #fff; font-weight: 500; }
 .nav-overlay-logo em { color: var(--gold); font-style: normal; }
-.nav-overlay-close {
-  font-size: 2rem;
-  color: rgba(255,255,255,0.6);
-  cursor: pointer;
-  background: none;
-  border: none;
-  line-height: 1;
-}
-.nav-overlay a {
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  font-size: 1.15rem;
-  font-weight: 500;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: block;
-  letter-spacing: 0.03em;
-}
-.nav-overlay a.rdv { color: var(--gold); font-weight: 700; margin-bottom: 0.5rem; font-size: 1.25rem; }
+.nav-overlay-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 1.1rem; padding: 0.3rem 0.65rem; cursor: pointer; border-radius: 2px; }
+.nav-overlay a { display: block; padding: 0.85rem 2rem; color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-overlay a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-overlay a.rdv { color: var(--gold); font-weight: 700; font-size: 1.25rem; }
 @media (max-width: 768px) {
   .nav-mobile-menu { display: flex; }
 }
