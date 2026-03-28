@@ -1774,14 +1774,14 @@ nav.scrolled {
       <h1>Vous n'êtes pas seul<br><em>face au cancer</em></h1>
       <p class="hero-lead">Une équipe de spécialistes en oncologie, entièrement dédiée à votre parcours de soins.</p>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:0.5rem;">
-        <a href="#contact" class="hero-cta">📅 Prendre rendez-vous</a>
+        <a href="rendez-vous.html" class="hero-cta">📅 Prendre rendez-vous</a>
         <a href="traitements.html" class="hero-cta" style="background:transparent;border:2px solid rgba(255,255,255,0.35);color:white;">Notre prise en charge</a>
       </div>
     </div>
 
     <!-- Colonne droite : cartes de réassurance -->
     <div class="hero-visual">
-      <a href="#contact" class="hero-visual-card featured" style="text-decoration:none;cursor:pointer;">
+      <a href="rendez-vous.html" class="hero-visual-card featured" style="text-decoration:none;cursor:pointer;">
         <div class="hero-visual-card-icon">⚡</div>
         <div class="hero-visual-card-title">Consultation sous 48h</div>
         <div class="hero-visual-card-sub">Notre secrétariat vous répond du lundi au vendredi, 8h–18h</div>
@@ -1950,15 +1950,14 @@ const _plId = (function() {
   const n = new Date();
   return n.getMonth() === 2 || (n.getMonth() === 3 && n.getDate() === 1) ? 'preloader-mb' : 'preloader';
 })();
-/* Preloader : skip si on vient d'une page interne du site */
-const _skipPl = document.referrer &&
-  (document.referrer.includes(location.hostname) || document.referrer.includes('icsf91.fr'));
-if (_skipPl) {
+/* Preloader : joue une seule fois par session (onglet) */
+if (sessionStorage.getItem('_plDone')) {
   document.getElementById('preloader').style.display = 'none';
   document.getElementById('preloader-mb').style.display = 'none';
   document.body.style.overflow = '';
 } else {
   window.addEventListener('load', () => {
+    sessionStorage.setItem('_plDone', '1');
     setTimeout(() => {
       document.getElementById(_plId).classList.add('open');
       setTimeout(() => {
