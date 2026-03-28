@@ -101,7 +101,8 @@ nav {
 
 /* Dropdown spécialités */
 .nav-dropdown { position: relative; display: flex; align-items: center; }
-.nav-dropdown > span {
+.nav-dropdown > span,
+.nav-dropdown > a {
   color: rgba(255,255,255,0.75);
   font-size: 0.72rem;
   font-weight: 500;
@@ -117,9 +118,12 @@ nav {
   transition: color 0.2s;
   border-bottom: 2px solid transparent;
   user-select: none;
+  text-decoration: none;
 }
 .nav-dropdown > span:hover,
-.nav-dropdown:hover > span { color: #fff; border-bottom-color: var(--gold); }
+.nav-dropdown:hover > span,
+.nav-dropdown > a:hover,
+.nav-dropdown:hover > a { color: #fff; border-bottom-color: var(--gold); }
 .nav-dropdown-menu {
   display: none;
   position: absolute;
@@ -1552,6 +1556,29 @@ nav.scrolled {
   background: var(--teal) !important;
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ICSF – Institut de Cancérologie du Sud Francilien",
+  "url": "https://www.icsf91.fr/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Navigation principale",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil",                     "url": "https://www.icsf91.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "L'Institut",                  "url": "https://www.icsf91.fr/equipe.html" },
+    { "@type": "ListItem", "position": 3, "name": "Traitements & Expertises",    "url": "https://www.icsf91.fr/traitements.html" },
+    { "@type": "ListItem", "position": 4, "name": "Centre Sein",                 "url": "https://www.icsf91.fr/centre-sein.html" },
+    { "@type": "ListItem", "position": 5, "name": "Nos centres",                 "url": "https://www.icsf91.fr/etablissements.html" },
+    { "@type": "ListItem", "position": 6, "name": "Prendre RDV",                 "url": "https://www.icsf91.fr/#contact" }
+  ]
+}
+</script>
 </head>
 
 <body>
@@ -1675,24 +1702,20 @@ nav.scrolled {
     <div class="nav-separator"></div>
     <span class="nav-institut">Institut de Cancérologie<br>du Sud Francilien</span>
     <div class="nav-links">
+      <a href="index.html">Accueil</a>
       <div class="nav-dropdown">
-        <span>L'Institut ▾</span>
+        <a href="equipe.html">L'Institut ▾</a>
         <div class="nav-dropdown-menu">
           <a href="equipe.html">👥 Équipe</a>
           <a href="etablissements.html">📍 Nos centres</a>
         </div>
       </div>
       <div class="nav-dropdown">
-        <span>Votre parcours ▾</span>
+        <a href="traitements.html">Traitements &amp; Expertises ▾</a>
         <div class="nav-dropdown-menu">
           <a href="traitements.html">💉 Traitements</a>
           <a href="hospitalisation.html">🏥 Hospitalisation</a>
           <a href="soins-support.html">🤝 Soins de support</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <span>Expertises ▾</span>
-        <div class="nav-dropdown-menu">
           <a href="irm-linac.html">🔬 IRM-Linac</a>
           <a href="reirradiation.html">🔄 Réirradiation</a>
           <a href="oncogenetique.html">🧬 Oncogénétique</a>
