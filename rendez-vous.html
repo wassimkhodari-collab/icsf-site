@@ -65,16 +65,18 @@ p { margin-bottom: 0.9rem; color: var(--text); }
 p:last-child { margin-bottom: 0; }
 .highlight { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 1.2rem 1.5rem; border-radius: 0 3px 3px 0; margin-bottom: 1.5rem; }
 
-/* CONTACT BOXES */
-.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
-.contact-box { background: var(--navy); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 1.6rem 1.8rem; }
-.contact-box-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
-.contact-box a { color: white; text-decoration: none; }
-.contact-box a:hover { text-decoration: underline; }
-.contact-box-doctolib { border-color: rgba(23,131,255,0.35); background: rgba(23,131,255,0.12); }
-.contact-box-doctolib .contact-box-label { color: #60aeff; }
-.doctolib-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #1783FF; color: white !important; font-size: 0.8rem; font-weight: 700; padding: 0.6rem 1.4rem; border-radius: 2px; text-decoration: none !important; letter-spacing: 0.03em; margin-top: 0.6rem; transition: background 0.2s; }
-.doctolib-btn:hover { background: #1269cc !important; text-decoration: none !important; }
+/* CONTACT LIST */
+.contact-list { margin-top: 2rem; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.contact-row { display: flex; align-items: center; gap: 1.2rem; padding: 1.3rem 1.5rem; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); background: white; transition: background 0.2s; }
+.contact-row:last-child { border-bottom: none; }
+.contact-row:hover { background: var(--stone); }
+.contact-row-icon { font-size: 1.5rem; flex-shrink: 0; width: 2rem; text-align: center; }
+.contact-row-body { flex: 1; }
+.contact-row-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.2rem; font-weight: 600; }
+.contact-row-value { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+.contact-row-value.doctolib { color: #1783FF; }
+.contact-row-sub { font-size: 0.78rem; color: var(--text-soft); margin-top: 0.15rem; }
+.contact-row-arrow { color: var(--gold); font-size: 1rem; flex-shrink: 0; }
 
 /* TESTIMONIAL */
 .testimonial { text-align: center; padding: 3.5rem 2rem; border-top: 1px solid var(--border); }
@@ -162,28 +164,36 @@ div[id] { scroll-margin-top: 72px; }
         <p class="section-label" style="color: var(--gold);">Rendez-vous · ICSF</p>
         <h2>Un cancer ne peut pas attendre.<br><em style="font-style:italic;color:var(--gold);">Nous non plus.</em></h2>
         <p class="section-tagline">Que vous veniez d'être diagnostiqué, que votre médecin vous adresse à nous, ou que vous souhaitiez un second avis — notre secrétariat vous propose un rendez-vous dans les 48 heures.</p>
-        <div class="highlight">
-          Notre équipe s'engage à vous répondre rapidement. <strong>Trois façons de nous contacter</strong> — par téléphone, en ligne via Doctolib, ou par email.
-        </div>
+        <div class="contact-list">
 
-        <div class="contact-grid">
+          <a href="tel:0173228406" class="contact-row">
+            <div class="contact-row-icon">📞</div>
+            <div class="contact-row-body">
+              <div class="contact-row-label">Secrétariat</div>
+              <div class="contact-row-value">01 73 22 84 06</div>
+              <div class="contact-row-sub">Lundi – Vendredi · 8h–18h</div>
+            </div>
+            <div class="contact-row-arrow">→</div>
+          </a>
 
-          <div class="contact-box">
-            <div class="contact-box-label">📞 Secrétariat</div>
-            <a href="tel:0173228406" style="font-size:1.2rem;font-weight:700;display:block;margin-bottom:0.2rem;">01 73 22 84 06</a>
-            <div style="font-size:0.78rem;color:rgba(255,255,255,0.55);">Lundi – Vendredi · 8h–18h</div>
-          </div>
+          <a href="equipe.html" class="contact-row">
+            <div class="contact-row-icon">🗓️</div>
+            <div class="contact-row-body">
+              <div class="contact-row-label">Rendez-vous en ligne</div>
+              <div class="contact-row-value doctolib">Doctolib</div>
+              <div class="contact-row-sub">Réserver avec votre médecin</div>
+            </div>
+            <div class="contact-row-arrow">→</div>
+          </a>
 
-          <div class="contact-box contact-box-doctolib">
-            <div class="contact-box-label">🗓️ Rendez-vous en ligne</div>
-            <div style="font-size:0.88rem;color:rgba(255,255,255,0.75);margin-bottom:0.2rem;">Plusieurs médecins disponibles</div>
-            <a href="equipe.html" class="doctolib-btn">Accéder à Doctolib →</a>
-          </div>
-
-          <div class="contact-box">
-            <div class="contact-box-label">✉️ Email</div>
-            <a href="mailto:secretariat@icsf91.fr" style="font-size:0.92rem;">secretariat@icsf91.fr</a>
-          </div>
+          <a href="mailto:secretariat@icsf91.fr" class="contact-row">
+            <div class="contact-row-icon">✉️</div>
+            <div class="contact-row-body">
+              <div class="contact-row-label">Email</div>
+              <div class="contact-row-value">secretariat@icsf91.fr</div>
+            </div>
+            <div class="contact-row-arrow">→</div>
+          </a>
 
         </div>
       </div>
