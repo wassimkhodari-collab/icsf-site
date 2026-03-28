@@ -1950,14 +1950,16 @@ const _plId = (function() {
   const n = new Date();
   return n.getMonth() === 2 || (n.getMonth() === 3 && n.getDate() === 1) ? 'preloader-mb' : 'preloader';
 })();
-/* Preloader : joue une seule fois par session (onglet) */
-if (sessionStorage.getItem('_plDone')) {
+/* Preloader : joue au lancement du site (première visite ou après 2h) */
+const _plTs = localStorage.getItem('_plTs');
+const _skipPl = _plTs && (Date.now() - parseInt(_plTs, 10)) < 7200000;
+if (_skipPl) {
   document.getElementById('preloader').style.display = 'none';
   document.getElementById('preloader-mb').style.display = 'none';
   document.body.style.overflow = '';
 } else {
   window.addEventListener('load', () => {
-    sessionStorage.setItem('_plDone', '1');
+    localStorage.setItem('_plTs', Date.now());
     setTimeout(() => {
       document.getElementById(_plId).classList.add('open');
       setTimeout(() => {
