@@ -255,7 +255,11 @@ nav {
   border-left: 3px solid var(--gold);
   border-radius: 3px;
   padding: 1rem 1.3rem;
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .hero-visual-card { background: rgba(255,255,255,0.13); }
 }
 .hero-visual-card-icon { font-size: 1.2rem; margin-bottom: 0.3rem; }
 .hero-visual-card-title {
@@ -1440,6 +1444,9 @@ nav.scrolled {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 4px 32px rgba(0,0,0,0.22);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  nav.scrolled { background: rgba(13, 43, 69, 0.97); }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━
