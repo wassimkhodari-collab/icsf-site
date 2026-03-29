@@ -1925,11 +1925,15 @@ const _plId = (function() {
 })();
 /* Preloader :
    - même onglet (navigation interne) → skip (sessionStorage)
-   - nouvel onglet dans les 30min → skip (localStorage TTL)
+   - navigation interne dans les 30min → skip (sessionStorage + localStorage TTL)
+   - arrivée depuis Google / source externe → intro rejoue toujours
    - fermeture navigateur + réouverture après 30min → intro rejoue */
+const _isInternal = document.referrer.includes('icsf91.fr');
 const _plLsTs = localStorage.getItem('_plTs');
-const _skipPl = sessionStorage.getItem('_plDone') ||
-  (_plLsTs && (Date.now() - parseInt(_plLsTs, 10)) < 1800000);
+const _skipPl = _isInternal && (
+  sessionStorage.getItem('_plDone') ||
+  (_plLsTs && (Date.now() - parseInt(_plLsTs, 10)) < 1800000)
+);
 if (_skipPl) {
   document.getElementById('preloader').style.display = 'none';
   document.getElementById('preloader-mb').style.display = 'none';
