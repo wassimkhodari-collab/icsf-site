@@ -23,17 +23,79 @@ Il est fondé entre les adhérents aux présents statuts une association régie 
 
 L'association a pour objet de :
 
-1. **Fédérer** les oncologues médicaux, radiothérapeutes, chirurgiens oncologues, médecins nucléaires, anatomopathologistes, radiologues, biologistes, psycho-oncologues et tous les professionnels de santé impliqués dans la prise en charge des patients atteints de cancer sur le territoire du Sud de l'Île-de-France ;
+**I. Fédération et coordination des professionnels**
 
-2. **Promouvoir** la qualité et la coordination des soins oncologiques pluridisciplinaires au bénéfice des patients de la région ;
+1. **Fédérer** les oncologues médicaux, radiothérapeutes, chirurgiens oncologues, médecins nucléaires, anatomopathologistes, radiologues, biologistes, pharmaciens, psycho-oncologues, infirmiers de coordination, soignants en soins de support et tous les professionnels de santé impliqués dans la prise en charge des patients atteints de cancer sur le territoire du Sud de l'Île-de-France ;
 
-3. **Favoriser** les échanges scientifiques, la formation continue et le développement des compétences de ses membres ;
+2. **Structurer et animer** les réunions de concertation pluridisciplinaires (RCP) inter-établissements, en garantissant leur tenue régulière, leur traçabilité et leur conformité aux référentiels nationaux ;
 
-4. **Soutenir** la recherche clinique et translationnelle en cancérologie dans le Sud Francilien, y compris la conduite et la promotion d'essais thérapeutiques ;
+3. **Coordonner les parcours de soins** des patients atteints de cancer entre les différents établissements, services et professionnels du territoire, afin d'assurer la continuité, la cohérence et la fluidité de la prise en charge ;
 
-5. **Représenter** les professionnels de la cancérologie du Sud Francilien auprès des institutions, des autorités de santé et des organismes professionnels ;
+4. **Développer des réseaux de soins** entre les établissements publics et privés, les médecins de ville, les soignants libéraux et les structures médico-sociales du Sud Francilien ;
 
-6. **Développer** des partenariats avec les établissements de santé, les universités et les organismes de recherche.
+**II. Qualité et sécurité des soins**
+
+5. **Promouvoir** la qualité, la sécurité et l'équité des soins oncologiques pluridisciplinaires au bénéfice des patients de la région, en s'appuyant sur les recommandations des sociétés savantes nationales et internationales ;
+
+6. **Développer et diffuser** des protocoles, référentiels et outils d'aide à la décision thérapeutique adaptés aux spécificités du territoire ;
+
+7. **Veiller au respect des règles éthiques et déontologiques** dans la prise en charge oncologique, notamment en ce qui concerne le consentement éclairé, l'information du patient, la collégialité des décisions et le respect de la dignité des personnes malades ;
+
+8. **Favoriser la certification et l'accréditation** des pratiques et des établissements membres, en lien avec la Haute Autorité de Santé (HAS) et les instances compétentes ;
+
+**III. Recherche et innovation**
+
+9. **Soutenir** la recherche clinique et translationnelle en cancérologie dans le Sud Francilien, y compris la conduite, la promotion et la coordination d'essais thérapeutiques de toutes phases (phase I, II, III et IV) ;
+
+10. **Promouvoir la médecine de précision** et les thérapeutiques ciblées, notamment par le développement de l'oncogénétique, de la génomique tumorale, de la biologie moléculaire et de l'immunothérapie ;
+
+11. **Favoriser la constitution et la gestion de biobanques et biothèques** dans le respect de la réglementation en vigueur, afin de soutenir les projets de recherche translationnelle ;
+
+12. **Encourager et soutenir les publications scientifiques**, la participation à des congrès nationaux et internationaux, et la diffusion des travaux produits par les membres de l'association ;
+
+13. **Promouvoir l'innovation numérique et technologique** en cancérologie, y compris l'usage de l'intelligence artificielle, de la télémédecine, des outils de télésuivi et des dispositifs médicaux connectés ;
+
+14. **Coordonner la prise en charge des cancers rares** sur le territoire, en lien avec les centres nationaux de référence et les réseaux européens spécialisés ;
+
+**IV. Formation et enseignement**
+
+15. **Favoriser** les échanges scientifiques, la formation médicale continue (FMC) et le développement professionnel continu (DPC) de l'ensemble des professionnels membres ;
+
+16. **Accueillir, encadrer et former** les internes, chefs de clinique, assistants spécialistes et jeunes médecins en cancérologie, en leur offrant un environnement pluridisciplinaire et une exposition à des pratiques diversifiées ;
+
+17. **Organiser des séminaires, journées scientifiques, ateliers pratiques et formations** à destination des professionnels de santé du territoire, en cancérologie et dans les disciplines associées ;
+
+18. **Développer des partenariats pédagogiques** avec les universités, les facultés de médecine, les écoles paramédicales et les instituts de formation du Sud Francilien et d'Île-de-France ;
+
+**V. Prévention, dépistage et information**
+
+19. **Sensibiliser la population** aux facteurs de risque de cancer et promouvoir les comportements favorables à la santé, en partenariat avec les autorités sanitaires et les collectivités locales ;
+
+20. **Promouvoir et soutenir les campagnes de dépistage précoce** organisé et individuel, notamment pour les cancers du sein, du col utérin, colorectal, de la prostate et des cancers cutanés ;
+
+21. **Informer et éduquer les patients** et leurs proches sur les pathologies cancéreuses, les traitements disponibles, les essais cliniques accessibles et les ressources de soins de support du territoire ;
+
+22. **Développer l'éducation thérapeutique du patient (ETP)** afin d'améliorer l'autonomie, l'observance et la qualité de vie des personnes atteintes de cancer ;
+
+**VI. Soins de support, réhabilitation et après-cancer**
+
+23. **Promouvoir et développer les soins de support** (psycho-oncologie, soins palliatifs, douleur, nutrition, activité physique adaptée, réhabilitation, accompagnement social) en les intégrant pleinement dans le parcours de soin oncologique ;
+
+24. **Soutenir la prise en charge spécifique** des populations vulnérables, notamment en oncogériatrie, oncofertilité, oncopédiatrie et pour les patients en situation de précarité sociale ;
+
+25. **Accompagner les patients dans l'après-cancer**, notamment pour le suivi oncologique à long terme, la réinsertion professionnelle, la gestion des séquelles et la prévention des rechutes ;
+
+26. **Collaborer avec les associations de patients** et les représentants des usagers afin d'intégrer la perspective des patients dans les décisions stratégiques et les projets de l'association ;
+
+**VII. Représentation, influence et partenariats**
+
+27. **Représenter** les professionnels de la cancérologie du Sud Francilien auprès des institutions, des autorités de santé (ARS, INCa, HAS), des organismes professionnels et des instances politiques locales et nationales ;
+
+28. **Participer activement** aux travaux des réseaux régionaux et nationaux de cancérologie, notamment le réseau OncoCentre, les groupes coopérateurs et les sociétés savantes ;
+
+29. **Développer des partenariats** avec les établissements de santé, les universités, les organismes de recherche publics et privés, les industriels du médicament et du dispositif médical, dans le respect des règles de transparence et d'indépendance ;
+
+30. **Nouer des coopérations inter-régionales et internationales** avec des centres d'excellence en cancérologie, afin de favoriser les échanges de pratiques, de données et d'expertise.
 
 ---
 
