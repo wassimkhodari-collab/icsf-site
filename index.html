@@ -1910,10 +1910,10 @@ nav.scrolled {
    7.0s  → retiré du DOM
 ━━━━━━━━━━━━━━━━━━━━ */
 document.body.style.overflow = 'hidden';
-/* Mars Bleu : actif du 1er mars au 1er avril inclus */
+/* Mars Bleu : actif uniquement en mars (mois 2) */
 (function() {
   const n = new Date();
-  const isMB = n.getMonth() === 2 || (n.getMonth() === 3 && n.getDate() === 1);
+  const isMB = n.getMonth() === 2;
   if (isMB) {
     document.getElementById('preloader').style.display = 'none';
     document.getElementById('preloader-mb').style.display = '';
@@ -1921,7 +1921,7 @@ document.body.style.overflow = 'hidden';
 })();
 const _plId = (function() {
   const n = new Date();
-  return n.getMonth() === 2 || (n.getMonth() === 3 && n.getDate() === 1) ? 'preloader-mb' : 'preloader';
+  return n.getMonth() === 2 ? 'preloader-mb' : 'preloader';
 })();
 /* Preloader :
    - même onglet (navigation interne) → skip (sessionStorage)
