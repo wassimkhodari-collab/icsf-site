@@ -269,6 +269,7 @@ Le Président, au nom du Conseil d'Administration, est chargé de remplir toutes
 | **Dr KALLA Salima** | Directrice Médicale | |
 | **Dr GOZI Michel** | Vice-Président | |
 | **Dr MAHÉ Mathilde** | Secrétaire | |
+| **Dr HAYDAR Mazen** | Trésorier | |
 
 ---
 
