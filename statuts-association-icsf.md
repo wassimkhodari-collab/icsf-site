@@ -122,7 +122,8 @@ En cas de vacance d'un poste, le Conseil d'Administration peut coopter provisoir
 Le Conseil d'Administration élit parmi ses membres, au scrutin secret, un Bureau comprenant :
 
 - **Un(e) Président(e)**
-- **Un(e) ou plusieurs Vice-Président(e)s** (facultatif)
+- **Un(e) ou plusieurs Vice-Président(e)s**
+- **Un(e) Directeur(trice) Médical(e)**
 - **Un(e) Secrétaire**
 - **Un(e) Secrétaire adjoint(e)** (facultatif)
 - **Un(e) Trésorier(ère)**
@@ -265,9 +266,9 @@ Le Président, au nom du Conseil d'Administration, est chargé de remplir toutes
 | Nom — Prénom | Qualité dans le bureau | Signature |
 |---|---|---|
 | **Dr KHODARI Wassim** | Président | |
-| **Dr KALLA Salima** | Vice-Présidente / Secrétaire | |
-| **Dr GOZI Michel** | Trésorier | |
-| **Dr MAHÉ Mathilde** | Secrétaire Adjointe | |
+| **Dr KALLA Salima** | Directrice Médicale | |
+| **Dr GOZI Michel** | Vice-Président | |
+| **Dr MAHÉ Mathilde** | Secrétaire | |
 
 ---
 
