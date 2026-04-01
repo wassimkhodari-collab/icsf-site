@@ -173,7 +173,7 @@ Le Trésorier est chargé de tout ce qui concerne la gestion du patrimoine de l'
 
 ### Article 15 — Assemblée Générale Ordinaire
 
-L'Assemblée Générale Ordinaire comprend tous les membres de l'association à jour de leurs cotisations.
+L'Assemblée Générale Ordinaire comprend tous les membres actifs de l'association.
 
 Elle se réunit **une fois par an**, dans le premier semestre de l'année civile, sur convocation du Président adressée à chaque membre **quinze (15) jours au moins avant** la date de la réunion.
 
@@ -193,7 +193,7 @@ Les délibérations sont prises à la majorité absolue des membres présents ou
 
 ### Article 16 — Assemblée Générale Extraordinaire
 
-Une Assemblée Générale Extraordinaire peut être convoquée à tout moment par le Président ou à la demande de la moitié au moins des membres actifs à jour de cotisation.
+Une Assemblée Générale Extraordinaire peut être convoquée à tout moment par le Président ou à la demande de la moitié au moins des membres actifs.
 
 Elle est seule compétente pour :
 
@@ -214,10 +214,10 @@ Les délibérations sont prises à la majorité des deux tiers (2/3) des membres
 Les ressources de l'association comprennent :
 
 1. Les subventions de l'État, des collectivités territoriales et de tout organisme public ou privé ;
-3. Les dons manuels et les legs autorisés par la loi ;
-4. Les produits des manifestations, colloques et événements organisés par l'association ;
-5. Les produits de conventions, de partenariats industriels ou académiques et de prestations de services compatibles avec l'objet social, notamment liés à la conduite d'essais thérapeutiques ;
-6. Toute autre ressource autorisée par la loi.
+2. Les dons manuels et les legs autorisés par la loi ;
+3. Les produits des manifestations, colloques et événements organisés par l'association ;
+4. Les produits de conventions, de partenariats industriels ou académiques et de prestations de services compatibles avec l'objet social, notamment liés à la conduite d'essais thérapeutiques ;
+5. Toute autre ressource autorisée par la loi.
 
 ---
 
