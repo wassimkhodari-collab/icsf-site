@@ -29,7 +29,7 @@ L'association a pour objet de :
 
 3. **Favoriser** les échanges scientifiques, la formation continue et le développement des compétences de ses membres ;
 
-4. **Soutenir** la recherche clinique et translationnelle en cancérologie dans le Sud Francilien ;
+4. **Soutenir** la recherche clinique et translationnelle en cancérologie dans le Sud Francilien, y compris la conduite et la promotion d'essais thérapeutiques ;
 
 5. **Représenter** les professionnels de la cancérologie du Sud Francilien auprès des institutions, des autorités de santé et des organismes professionnels ;
 
@@ -63,7 +63,7 @@ L'association se compose de :
 
 - **Membres fondateurs** : les personnes physiques signataires des présents statuts qui ont participé à la constitution de l'association ;
 
-- **Membres actifs** : tout médecin, professionnel de santé ou chercheur intervenant dans la prise en charge oncologique dans le Sud de l'Île-de-France, ayant acquitté la cotisation annuelle en vigueur ;
+- **Membres actifs** : tout médecin, professionnel de santé ou chercheur intervenant dans la prise en charge oncologique dans le Sud de l'Île-de-France, ayant signé et s'engageant à respecter la Charte de l'ICSF ;
 
 - **Membres associés** : tout professionnel de santé, établissement ou organisme partageant les valeurs et les objectifs de l'association, sans exercer de droit de vote aux assemblées générales ;
 
@@ -77,18 +77,18 @@ Pour faire partie de l'association en qualité de membre actif, il faut :
 
 1. En faire la demande écrite adressée au Président de l'association ;
 2. Justifier d'une activité professionnelle dans le domaine de la cancérologie ou d'un domaine connexe ;
-3. Être agréé par le Conseil d'Administration, qui statue lors de chacune de ses réunions sur les demandes d'admission présentées ;
-4. S'acquitter de la cotisation annuelle.
+3. Signer la Charte de l'ICSF et s'engager à en respecter les principes et les valeurs ;
+4. Être agréé par le Conseil d'Administration, qui statue lors de chacune de ses réunions sur les demandes d'admission présentées.
 
 En cas de refus, le Conseil d'Administration n'est pas tenu de motiver sa décision.
 
 ---
 
-### Article 7 — Cotisations
+### Article 7 — Gratuité de l'adhésion
 
-Le montant de la cotisation annuelle est fixé chaque année par l'Assemblée Générale Ordinaire sur proposition du Conseil d'Administration.
+L'adhésion à l'association est gratuite. Aucune cotisation n'est exigée des membres.
 
-La cotisation est due pour l'année civile en cours à compter de la date d'adhésion. Elle n'est pas remboursable en cas de départ en cours d'année.
+La qualité de membre est accordée à titre personnel et n'est pas cessible.
 
 ---
 
@@ -98,7 +98,7 @@ La qualité de membre se perd par :
 
 1. **La démission**, adressée par écrit au Président ;
 2. **Le décès** ;
-3. **La radiation** prononcée par le Conseil d'Administration pour non-paiement de la cotisation après mise en demeure restée infructueuse pendant deux (2) mois ;
+3. **La radiation** prononcée par le Conseil d'Administration pour manquement aux engagements souscrits dans la Charte de l'ICSF ;
 4. **L'exclusion** prononcée par le Conseil d'Administration pour motif grave, l'intéressé ayant été préalablement invité à présenter ses observations devant le Conseil.
 
 ---
@@ -109,9 +109,9 @@ La qualité de membre se perd par :
 
 ### Article 9 — Conseil d'Administration
 
-L'association est administrée par un Conseil d'Administration composé de **trois (3) membres au minimum et quinze (15) membres au maximum**, élus pour une durée de **trois (3) ans** par l'Assemblée Générale Ordinaire parmi les membres actifs.
+L'association est administrée par un Conseil d'Administration composé de **trois (3) membres au minimum et quinze (15) membres au maximum**, élus pour une durée de **six (6) ans** par l'Assemblée Générale Ordinaire parmi les membres actifs.
 
-Le Conseil d'Administration est renouvelé par tiers tous les ans. Les membres sortants sont rééligibles.
+Le Conseil d'Administration est renouvelé par moitié tous les trois (3) ans. Les membres sortants sont rééligibles.
 
 En cas de vacance d'un poste, le Conseil d'Administration peut coopter provisoirement un remplaçant. La cooptation est soumise à ratification de la prochaine Assemblée Générale.
 
@@ -129,7 +129,7 @@ Le Conseil d'Administration élit parmi ses membres, au scrutin secret, un Burea
 - **Un(e) Trésorier(ère)**
 - **Un(e) Trésorier(ère) adjoint(e)** (facultatif)
 
-Le Bureau est élu pour une durée de **trois (3) ans**, renouvelable.
+Le Bureau est élu pour une durée de **six (6) ans**, renouvelable.
 
 ---
 
@@ -184,7 +184,6 @@ L'Assemblée Générale Ordinaire :
 - Entend le rapport moral du Président et le rapport financier du Trésorier ;
 - Approuve les comptes de l'exercice écoulé ;
 - Vote le budget de l'exercice suivant ;
-- Fixe le montant des cotisations ;
 - Élit les membres du Conseil d'Administration ;
 - Délibère sur les questions inscrites à l'ordre du jour.
 
@@ -214,11 +213,10 @@ Les délibérations sont prises à la majorité des deux tiers (2/3) des membres
 
 Les ressources de l'association comprennent :
 
-1. Les cotisations de ses membres ;
-2. Les subventions de l'État, des collectivités territoriales et de tout organisme public ou privé ;
+1. Les subventions de l'État, des collectivités territoriales et de tout organisme public ou privé ;
 3. Les dons manuels et les legs autorisés par la loi ;
 4. Les produits des manifestations, colloques et événements organisés par l'association ;
-5. Les produits de conventions, partenariats et prestations de services compatibles avec l'objet social ;
+5. Les produits de conventions, de partenariats industriels ou académiques et de prestations de services compatibles avec l'objet social, notamment liés à la conduite d'essais thérapeutiques ;
 6. Toute autre ressource autorisée par la loi.
 
 ---
