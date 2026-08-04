@@ -8,17 +8,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #1F3864;
-  --navy-mid: #2c4a7c;
-  --gold: #B08D57;
-  --gold-on-dark: #cba86e;  /* small text on navy — 5:1 contrast, meets WCAG AA */
-  --gold-on-light: #8b6b3d; /* small text on white/stone — 4.7:1 contrast, meets WCAG AA */
-  --gold-light: #f3ead9;
-  --warm-white: #faf9f7;
-  --stone: #f0ece6;
-  --text: #2c3947;
-  --text-soft: #5a6a7c;
-  --border: #dee3ea;
+  /* Palette échantillonnée directement sur cognacq-jay-sante.fr */
+  --navy: #0B2546;
+  --navy-mid: #304662;
+  --sky: #8EC0D7;
+  --sky-light: #E8F2F7;
+  --orange: #DF9033;
+  --orange-on-dark: #F0A94B;  /* small text on navy — ~6:1 contrast, meets WCAG AA */
+  --orange-on-light: #9C5A16; /* small text on white/stone — ~5:1 contrast, meets WCAG AA */
+  --orange-light: #FAEEE0;
+  --warm-white: #FAFBFC;
+  --stone: #EEF3F6;
+  --text: #1F2E3A;
+  --text-soft: #55707F;
+  --border: #DCE6ED;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,8 +52,8 @@ img { max-width: 100%; display: block; }
 
 /* ── En-tête ── */
 header.site-header {
-  background: var(--navy);
-  border-bottom: 3px solid var(--gold);
+  background: #fff;
+  border-bottom: 3px solid var(--orange);
 }
 .header-inner {
   max-width: 1120px;
@@ -71,21 +74,21 @@ header.site-header {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.55rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--navy);
   letter-spacing: 0.02em;
 }
 .brand-sub {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
+  color: var(--text-soft);
 }
 .breadcrumb {
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.55);
+  color: var(--text-soft);
   letter-spacing: 0.02em;
 }
-.breadcrumb span { color: rgba(255,255,255,0.85); }
+.breadcrumb span { color: var(--navy); font-weight: 500; }
 
 /* ── Hero ── */
 .hero {
@@ -98,7 +101,7 @@ header.site-header {
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-on-dark);
+  color: var(--orange-on-dark);
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -114,7 +117,7 @@ header.site-header {
   font-style: italic;
   font-weight: 400;
   font-size: 1.3rem;
-  color: rgba(255,255,255,0.88);
+  color: var(--sky);
   line-height: 1.5;
   max-width: 620px;
   margin: 0 auto;
@@ -129,7 +132,7 @@ section:last-of-type { border-bottom: none; }
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-on-light);
+  color: var(--orange-on-light);
   font-weight: 700;
   margin-bottom: 0.6rem;
 }
@@ -169,7 +172,7 @@ ul.feature-list li::before {
   top: 0.55rem;
   width: 7px;
   height: 7px;
-  background: var(--gold);
+  background: var(--orange);
   border-radius: 50%;
 }
 ul.feature-list li strong { color: var(--navy); }
@@ -184,7 +187,7 @@ ul.feature-list li strong { color: var(--navy); }
 .tech-card {
   background: var(--stone);
   border: 1px solid var(--border);
-  border-top: 3px solid var(--gold);
+  border-top: 3px solid var(--orange);
   padding: 1.4rem 1.5rem;
   border-radius: 3px;
 }
@@ -192,14 +195,14 @@ ul.feature-list li strong { color: var(--navy); }
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--gold-on-light);
+  color: var(--orange-on-light);
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 .tech-card .tech-marker {
   width: 7px;
   height: 7px;
-  background: var(--gold);
+  background: var(--orange);
   border-radius: 50%;
   margin-bottom: 0.85rem;
 }
@@ -214,8 +217,8 @@ ul.feature-list li strong { color: var(--navy); }
   margin-top: 1.3rem;
 }
 .indication-tag {
-  background: var(--gold-light);
-  border: 1px solid #e6d3ae;
+  background: var(--orange-light);
+  border: 1px solid #ecd3b6;
   border-radius: 3px;
   padding: 0.9rem 1.1rem;
   font-size: 0.94rem;
@@ -253,7 +256,7 @@ details.pro-panel summary::marker { display: none; }
 details.pro-panel summary::after {
   content: "+";
   font-size: 1.3rem;
-  color: var(--gold);
+  color: var(--orange-on-light);
   font-weight: 400;
 }
 details.pro-panel[open] summary::after { content: "−"; }
@@ -291,8 +294,9 @@ details.pro-panel[open] summary::after { content: "−"; }
   align-items: stretch;
 }
 .patient-cta-box {
-  background: var(--gold-light);
-  border: 1px solid #e6d3ae;
+  background: var(--sky-light);
+  border: 1px solid #bcdcea;
+  border-top: 3px solid var(--sky);
   border-radius: 4px;
   padding: 2rem 2.2rem;
 }
@@ -322,7 +326,7 @@ details.pro-panel[open] summary::after { content: "−"; }
 .referral-box h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
-  color: var(--gold);
+  color: var(--orange);
   margin-bottom: 1rem;
   font-weight: 600;
 }
@@ -336,7 +340,7 @@ details.pro-panel[open] summary::after { content: "−"; }
   gap: 0.6rem;
 }
 .referral-list li:last-child { border-bottom: none; }
-.referral-list li .label { color: var(--gold-on-dark); font-weight: 600; min-width: 150px; flex-shrink: 0; }
+.referral-list li .label { color: var(--orange-on-dark); font-weight: 600; min-width: 150px; flex-shrink: 0; }
 .placeholder { color: rgba(255,255,255,0.55); font-style: italic; }
 
 /* ── Porteurs du projet ── */
@@ -358,7 +362,7 @@ details.pro-panel[open] summary::after { content: "−"; }
   height: 84px;
   border-radius: 50%;
   background: var(--navy);
-  color: var(--gold-on-dark);
+  color: var(--orange-on-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -403,7 +407,7 @@ footer.institutional .group-name { color: var(--navy); font-weight: 600; }
 <header class="site-header">
   <div class="header-inner">
     <div class="brand">
-      <span class="brand-name">Hôpital de <em style="font-style:normal;color:var(--gold)">Forcilles</em></span>
+      <span class="brand-name">Hôpital de <em style="font-style:normal;color:var(--orange)">Forcilles</em></span>
       <span class="brand-sub">Fondation Cognacq-Jay</span>
     </div>
     <div class="breadcrumb">Accueil / Radiothérapie / <span>Unité d'expertise en réirradiation</span></div>
