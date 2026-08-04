@@ -11,6 +11,8 @@
   --navy: #1F3864;
   --navy-mid: #2c4a7c;
   --gold: #B08D57;
+  --gold-on-dark: #cba86e;  /* small text on navy — 5:1 contrast, meets WCAG AA */
+  --gold-on-light: #8b6b3d; /* small text on white/stone — 4.7:1 contrast, meets WCAG AA */
   --gold-light: #f3ead9;
   --warm-white: #faf9f7;
   --stone: #f0ece6;
@@ -96,7 +98,7 @@ header.site-header {
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-on-dark);
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -127,7 +129,7 @@ section:last-of-type { border-bottom: none; }
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-on-light);
   font-weight: 700;
   margin-bottom: 0.6rem;
 }
@@ -190,9 +192,16 @@ ul.feature-list li strong { color: var(--navy); }
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--gold);
+  color: var(--gold-on-light);
   line-height: 1;
   margin-bottom: 0.5rem;
+}
+.tech-card .tech-marker {
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-bottom: 0.85rem;
 }
 .tech-card p { font-size: 0.94rem; color: var(--text-soft); margin: 0; }
 .tech-card strong { color: var(--navy); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
@@ -273,13 +282,35 @@ details.pro-panel[open] summary::after { content: "−"; }
 .support-item strong { display: block; color: var(--navy); margin-bottom: 0.35rem; font-size: 0.98rem; }
 .support-item p { font-size: 0.92rem; color: var(--text-soft); margin: 0; }
 
-/* ── Adressage ── */
+/* ── Accès à l'unité (patient + correspondant) ── */
+.access-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.3rem;
+  margin-top: 1.4rem;
+  align-items: stretch;
+}
+.patient-cta-box {
+  background: var(--gold-light);
+  border: 1px solid #e6d3ae;
+  border-radius: 4px;
+  padding: 2rem 2.2rem;
+}
+.patient-cta-box h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.patient-cta-box p { color: var(--text); font-size: 0.94rem; margin: 0; }
+
 .referral-box {
   background: var(--navy);
   color: #fff;
   border-radius: 4px;
   padding: 2rem 2.2rem;
-  margin-top: 1.3rem;
+  margin-top: 0;
 }
 .referral-box h3 {
   font-family: 'Cormorant Garamond', serif;
@@ -298,7 +329,7 @@ details.pro-panel[open] summary::after { content: "−"; }
   gap: 0.6rem;
 }
 .referral-list li:last-child { border-bottom: none; }
-.referral-list li .label { color: var(--gold); font-weight: 600; min-width: 150px; flex-shrink: 0; }
+.referral-list li .label { color: var(--gold-on-dark); font-weight: 600; min-width: 150px; flex-shrink: 0; }
 .placeholder { color: rgba(255,255,255,0.55); font-style: italic; }
 
 /* ── Porteurs du projet ── */
@@ -320,7 +351,7 @@ details.pro-panel[open] summary::after { content: "−"; }
   height: 84px;
   border-radius: 50%;
   background: var(--navy);
-  color: var(--gold);
+  color: var(--gold-on-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -348,7 +379,7 @@ footer.institutional p {
 footer.institutional .group-name { color: var(--navy); font-weight: 600; }
 
 @media (max-width: 640px) {
-  .tech-grid, .indications-grid, .support-grid, .team-grid { grid-template-columns: 1fr; }
+  .tech-grid, .indications-grid, .support-grid, .team-grid, .access-grid { grid-template-columns: 1fr; }
   .referral-list li { flex-direction: column; gap: 0.15rem; }
   .referral-list li .label { min-width: 0; }
   .hero { padding: 3rem 1.5rem 2.5rem; }
@@ -400,22 +431,22 @@ footer.institutional .group-name { color: var(--navy); font-weight: 600; }
     <p>La sécurité d'une réirradiation repose avant tout sur la précision des outils utilisés pour délivrer le traitement et pour connaître, au préalable, la dose déjà reçue par chaque organe.</p>
     <div class="tech-grid">
       <div class="tech-card">
-        <div class="tech-number">02</div>
+        <div class="tech-number">2</div>
         <strong>Accélérateurs de haute précision</strong>
         <p>Deux accélérateurs dédiés à la radiothérapie stéréotaxique de haute précision.</p>
       </div>
       <div class="tech-card">
-        <div class="tech-number">01</div>
+        <div class="tech-number">1</div>
         <strong>Accélérateur adaptatif</strong>
         <p>Un accélérateur qui recalcule le traitement chaque jour à partir d'une image du patient prise en séance, pour s'adapter aux changements du corps au fil du traitement.</p>
       </div>
       <div class="tech-card">
-        <div class="tech-number">＋</div>
+        <div class="tech-marker"></div>
         <strong>Cumul de dose</strong>
         <p>Un logiciel de fusion et de cumul de dose permettant de connaître précisément la dose déjà reçue avant de proposer une nouvelle irradiation, pour un traitement sécurisé.</p>
       </div>
       <div class="tech-card">
-        <div class="tech-number">＋</div>
+        <div class="tech-marker"></div>
         <strong>Imagerie sur site</strong>
         <p>Un plateau d'imagerie, dont l'IRM, disponible sur site pour préparer et suivre le traitement.</p>
       </div>
@@ -432,13 +463,14 @@ footer.institutional .group-name { color: var(--navy); font-weight: 600; }
       <div class="indication-tag">Récidives de la prostate après radiothérapie</div>
       <div class="indication-tag">Récidives de métastases cérébrales déjà traitées</div>
       <div class="indication-tag">Récidives ORL</div>
-      <div class="indication-tag">Récidives mammaires (sein)</div>
+      <div class="indication-tag">Récidives du sein</div>
     </div>
     <p class="indication-note">D'autres localisations peuvent être discutées au cas par cas en réunion de concertation pluridisciplinaire.</p>
 
     <details class="pro-panel">
       <summary>Vous êtes médecin correspondant — voir le détail technique des indications</summary>
       <div class="pro-panel-body">
+        <p style="font-size:0.88rem;margin-bottom:1rem;"><strong>Plateau technique :</strong> 2 accélérateurs TrueBeam (radiothérapie stéréotaxique de haute précision), 1 accélérateur Ethos (radiothérapie adaptative recalculée à chaque séance), logiciel de fusion et cumul de dose, IRM sur site.</p>
         <table>
           <tr><th>Récidives osseuses / rachidiennes</th><td>Réirradiation stéréotaxique de récidives osseuses ou vertébrales après une première irradiation externe.</td></tr>
           <tr><th>Récidives pulmonaires localisées</th><td>Réirradiation stéréotaxique de nodules pulmonaires récidivants en champ déjà irradié.</td></tr>
@@ -473,20 +505,10 @@ footer.institutional .group-name { color: var(--navy); font-weight: 600; }
         <strong>Décision collégiale</strong>
         <p>Chaque dossier est discuté en réunion de concertation pluridisciplinaire dédiée avant toute proposition de traitement.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="adresser-un-patient">
-    <div class="section-eyebrow">Correspondants médicaux</div>
-    <h2>Comment adresser un patient</h2>
-    <p>Vous suivez un patient présentant une récidive en zone déjà irradiée ? Voici les éléments à transmettre à l'unité pour une première évaluation.</p>
-    <div class="referral-box">
-      <h3>Adressage à la RCP réirradiation</h3>
-      <ul class="referral-list">
-        <li><span class="label">Contact RCP</span> <span class="placeholder">Coordonnées à définir par le service avant mise en ligne</span></li>
-        <li><span class="label">Dossier à transmettre</span> Compte-rendu de la radiothérapie initiale, imagerie, dossier dosimétrique si disponible</li>
-        <li><span class="label">Délai de retour</span> <span class="placeholder">Délai indicatif à confirmer par le service</span></li>
-      </ul>
+      <div class="support-item">
+        <strong>Récupération de votre dossier technique</strong>
+        <p>Avec votre accord, l'équipe se charge de récupérer votre dossier technique auprès de votre centre de radiothérapie initial — une étape indispensable à la réirradiation, que vous n'avez pas à gérer seul(e).</p>
+      </div>
     </div>
   </section>
 
@@ -503,6 +525,25 @@ footer.institutional .group-name { color: var(--navy); font-weight: 600; }
         <div class="team-photo-placeholder">WK</div>
         <div class="name">Dr Wassim Khodari</div>
         <div class="role">Radiothérapeute — Médecin responsable de l'unité</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="acces-unite">
+    <div class="section-eyebrow">Premiers pas</div>
+    <h2>Comment accéder à l'unité</h2>
+    <div class="access-grid">
+      <div class="patient-cta-box">
+        <h3>Vous êtes patient ou proche ?</h3>
+        <p>Parlez-en à votre médecin oncologue ou radiothérapeute traitant : il pourra évaluer votre situation et, si la réirradiation est envisageable, adresser votre dossier à l'unité.</p>
+      </div>
+      <div class="referral-box">
+        <h3>Vous êtes médecin correspondant ?</h3>
+        <ul class="referral-list">
+          <li><span class="label">Contact RCP</span> <span class="placeholder">Coordonnées à définir par le service avant mise en ligne</span></li>
+          <li><span class="label">Dossier à transmettre</span> Compte-rendu de la radiothérapie initiale, imagerie, dossier dosimétrique si disponible — à défaut, l'unité peut le solliciter directement auprès du centre initial</li>
+          <li><span class="label">Délai de retour</span> <span class="placeholder">Délai indicatif à confirmer par le service</span></li>
+        </ul>
       </div>
     </div>
   </section>
