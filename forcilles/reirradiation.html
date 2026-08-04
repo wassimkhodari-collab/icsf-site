@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unité experte en réirradiation — Hôpital de Forcilles</title>
+<meta name="description" content="L'Hôpital de Forcilles développe une unité experte en réirradiation, une nouvelle option de traitement pour les patients en récidive grâce à un plateau technique de haute précision.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1F3864;
+  --navy-mid: #2c4a7c;
+  --gold: #B08D57;
+  --gold-light: #f3ead9;
+  --warm-white: #faf9f7;
+  --stone: #f0ece6;
+  --text: #2c3947;
+  --text-soft: #5a6a7c;
+  --border: #dee3ea;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm-white);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ── Bandeau de contexte (livrable, non intégré) ── */
+.dev-banner {
+  background: #fff8e6;
+  color: #6b4e0f;
+  border-bottom: 1px solid #e8d9ad;
+  font-size: 0.78rem;
+  text-align: center;
+  padding: 0.55rem 1rem;
+  line-height: 1.5;
+}
+.dev-banner strong { font-weight: 600; }
+
+/* ── En-tête ── */
+header.site-header {
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+}
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.brand-sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.breadcrumb {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.02em;
+}
+.breadcrumb span { color: rgba(255,255,255,0.85); }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+  color: #fff;
+  padding: 4.5rem 2rem 4rem;
+}
+.hero-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.5;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── Sections ── */
+main { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+.section-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: var(--navy);
+  margin-bottom: 1.3rem;
+  line-height: 1.3;
+}
+p { margin-bottom: 1.1rem; color: var(--text); }
+p:last-child { margin-bottom: 0; }
+.lead {
+  font-size: 1.08rem;
+  color: var(--text-soft);
+}
+
+/* ── Intro / hero paragraph ── */
+.intro-text p {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+}
+
+/* ── Liste à puces éditoriale ── */
+ul.feature-list { list-style: none; margin: 1.2rem 0; }
+ul.feature-list li {
+  position: relative;
+  padding-left: 1.7rem;
+  margin-bottom: 0.85rem;
+  color: var(--text);
+}
+ul.feature-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+ul.feature-list li strong { color: var(--navy); }
+
+/* ── Cartes plateau technique ── */
+.tech-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.tech-card {
+  background: var(--stone);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  padding: 1.4rem 1.5rem;
+  border-radius: 3px;
+}
+.tech-card .tech-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.tech-card p { font-size: 0.94rem; color: var(--text-soft); margin: 0; }
+.tech-card strong { color: var(--navy); display: block; margin-bottom: 0.3rem; font-size: 1rem; }
+
+/* ── Indications ── */
+.indications-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  margin-top: 1.3rem;
+}
+.indication-tag {
+  background: var(--gold-light);
+  border: 1px solid #e6d3ae;
+  border-radius: 3px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.94rem;
+  color: var(--navy);
+  font-weight: 500;
+}
+.indication-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+/* ── Encart professionnel ── */
+details.pro-panel {
+  margin-top: 1.8rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--navy);
+  background: #fff;
+  border-radius: 3px;
+}
+details.pro-panel summary {
+  cursor: pointer;
+  padding: 1rem 1.3rem;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.95rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.pro-panel summary::-webkit-details-marker { display: none; }
+details.pro-panel summary::marker { display: none; }
+details.pro-panel summary::after {
+  content: "+";
+  font-size: 1.3rem;
+  color: var(--gold);
+  font-weight: 400;
+}
+details.pro-panel[open] summary::after { content: "−"; }
+.pro-panel-body { padding: 0 1.3rem 1.3rem; }
+.pro-panel-body table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.5rem; }
+.pro-panel-body th, .pro-panel-body td {
+  text-align: left;
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.pro-panel-body th { color: var(--navy); font-weight: 600; width: 42%; }
+.pro-panel-body td { color: var(--text-soft); }
+
+/* ── Bloc prise en charge globale ── */
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin-top: 1.4rem;
+}
+.support-item {
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--border);
+}
+.support-item strong { display: block; color: var(--navy); margin-bottom: 0.35rem; font-size: 0.98rem; }
+.support-item p { font-size: 0.92rem; color: var(--text-soft); margin: 0; }
+
+/* ── Adressage ── */
+.referral-box {
+  background: var(--navy);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2rem 2.2rem;
+  margin-top: 1.3rem;
+}
+.referral-box h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.referral-list { list-style: none; }
+.referral-list li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.9);
+  display: flex;
+  gap: 0.6rem;
+}
+.referral-list li:last-child { border-bottom: none; }
+.referral-list li .label { color: var(--gold); font-weight: 600; min-width: 150px; flex-shrink: 0; }
+.placeholder { color: rgba(255,255,255,0.55); font-style: italic; }
+
+/* ── Porteurs du projet ── */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.3rem;
+  margin-top: 1.4rem;
+}
+.team-card {
+  background: var(--stone);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.6rem;
+  text-align: center;
+}
+.team-photo-placeholder {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  margin: 0 auto 0.9rem;
+  font-family: 'Cormorant Garamond', serif;
+}
+.team-card .name { font-weight: 600; color: var(--navy); font-size: 1.05rem; margin-bottom: 0.2rem; }
+.team-card .role { font-size: 0.85rem; color: var(--text-soft); }
+
+/* ── Footer institutionnel ── */
+footer.institutional {
+  background: var(--stone);
+  border-top: 1px solid var(--border);
+  padding: 2.2rem 2rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+footer.institutional p {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  max-width: 560px;
+  margin: 0 auto;
+}
+footer.institutional .group-name { color: var(--navy); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .tech-grid, .indications-grid, .support-grid, .team-grid { grid-template-columns: 1fr; }
+  .referral-list li { flex-direction: column; gap: 0.15rem; }
+  .referral-list li .label { min-width: 0; }
+  .hero { padding: 3rem 1.5rem 2.5rem; }
+  section { padding: 2.5rem 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="dev-banner">
+  <strong>Livrable de contenu</strong> — page autonome préparée pour intégration dans le site institutionnel de l'Hôpital de Forcilles. Charte graphique, navigation et coordonnées à valider/compléter par le service avant mise en ligne.
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-name">Hôpital de <em style="font-style:normal;color:var(--gold)">Forcilles</em></span>
+      <span class="brand-sub">Fondation Cognacq-Jay</span>
+    </div>
+    <div class="breadcrumb">Accueil / Radiothérapie / <span>Unité experte en réirradiation</span></div>
+  </div>
+</header>
+
+<section class="hero" style="border-bottom:none;padding-bottom:4rem;">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Service de radiothérapie</div>
+    <h1>Unité experte en réirradiation</h1>
+    <p class="hero-subtitle">Une nouvelle option de traitement pour les patients en récidive, grâce à un plateau technique de haute précision</p>
+  </div>
+</section>
+
+<main>
+
+  <section class="intro-text">
+    <p class="lead">Lorsqu'une tumeur récidive dans une zone déjà traitée par radiothérapie, une nouvelle irradiation était longtemps écartée par prudence. Les progrès de la radiothérapie de haute précision permettent aujourd'hui, dans de nombreuses situations, de proposer une réirradiation sécurisée. L'Hôpital de Forcilles développe une unité dédiée à cette prise en charge, portée par le service de radiothérapie et son plateau technique de pointe.</p>
+  </section>
+
+  <section id="quest-ce-que">
+    <div class="section-eyebrow">Comprendre</div>
+    <h2>Qu'est-ce que la réirradiation ?</h2>
+    <p>La réirradiation consiste à traiter une nouvelle fois, par radiothérapie, une zone déjà irradiée — ou une zone très proche — lorsqu'une tumeur y récidive. Ce geste, longtemps jugé trop risqué, est aujourd'hui rendu possible par les techniques modernes de haute précision.</p>
+    <p>Plusieurs progrès expliquent cette évolution : une imagerie prise chaque jour au moment du traitement, un calcul précis de la dose déjà reçue par les tissus, et un ajustement du traitement en temps réel pour épargner au maximum les organes sensibles.</p>
+    <p>Pour le patient, la réirradiation peut représenter une alternative à une chirurgie lourde, une option adaptée aux patients plus fragiles, et une solution dont l'efficacité est aujourd'hui démontrée, tant sur le contrôle de la maladie que sur le soulagement de la douleur.</p>
+  </section>
+
+  <section id="plateau-technique">
+    <div class="section-eyebrow">Notre équipement</div>
+    <h2>Un plateau technique de haute précision</h2>
+    <p>La sécurité d'une réirradiation repose avant tout sur la précision des outils utilisés pour délivrer le traitement et pour connaître, au préalable, la dose déjà reçue par chaque organe.</p>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-number">02</div>
+        <strong>Accélérateurs de haute précision</strong>
+        <p>Deux accélérateurs dédiés à la radiothérapie stéréotaxique de haute précision.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-number">01</div>
+        <strong>Accélérateur adaptatif</strong>
+        <p>Un accélérateur qui recalcule le traitement chaque jour à partir d'une image du patient prise en séance, pour s'adapter aux changements du corps au fil du traitement.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-number">＋</div>
+        <strong>Cumul de dose</strong>
+        <p>Un logiciel de fusion et de cumul de dose permettant de connaître précisément la dose déjà reçue avant de proposer une nouvelle irradiation, pour un traitement sécurisé.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-number">＋</div>
+        <strong>Imagerie sur site</strong>
+        <p>Un plateau d'imagerie, dont l'IRM, disponible sur site pour préparer et suivre le traitement.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="indications">
+    <div class="section-eyebrow">Prise en charge</div>
+    <h2>Les situations concernées</h2>
+    <p>La réirradiation peut être envisagée dans plusieurs situations de récidive. Chaque dossier est étudié individuellement pour déterminer si elle est adaptée.</p>
+    <div class="indications-grid">
+      <div class="indication-tag">Récidives osseuses ou du rachis</div>
+      <div class="indication-tag">Récidives pulmonaires localisées</div>
+      <div class="indication-tag">Récidives de la prostate après radiothérapie</div>
+      <div class="indication-tag">Récidives de métastases cérébrales déjà traitées</div>
+      <div class="indication-tag">Récidives ORL</div>
+    </div>
+    <p class="indication-note">D'autres localisations, dont le sein, seront intégrées progressivement à mesure de la montée en charge de l'unité.</p>
+
+    <details class="pro-panel">
+      <summary>Vous êtes médecin correspondant — voir le détail technique des indications</summary>
+      <div class="pro-panel-body">
+        <table>
+          <tr><th>Récidives osseuses / rachidiennes</th><td>Réirradiation stéréotaxique de récidives osseuses ou vertébrales après une première irradiation externe.</td></tr>
+          <tr><th>Récidives pulmonaires localisées</th><td>Réirradiation stéréotaxique de nodules pulmonaires récidivants en champ déjà irradié.</td></tr>
+          <tr><th>Récidives prostatiques</th><td>Réirradiation après radiothérapie externe ou curiethérapie initiale, selon le bilan d'extension et la dose cumulée.</td></tr>
+          <tr><th>Récidives cérébrales</th><td>Radiochirurgie itérative de métastases cérébrales déjà traitées par irradiation.</td></tr>
+          <tr><th>Récidives ORL</th><td>Réirradiation de récidives locorégionales ORL, en lien avec l'expertise ORL de l'établissement.</td></tr>
+        </table>
+        <p style="margin-top:1rem;font-size:0.88rem;">Modalités d'adressage détaillées ci-dessous.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="prise-en-charge-globale">
+    <div class="section-eyebrow">Accompagnement</div>
+    <h2>Une prise en charge globale, pas seulement un geste technique</h2>
+    <p>Traiter une récidive ne se limite pas à la séance de radiothérapie. L'Hôpital de Forcilles propose un accompagnement complet autour du patient.</p>
+    <div class="support-grid">
+      <div class="support-item">
+        <strong>Hospitalisation sur place</strong>
+        <p>Capacité d'hospitalisation en médecine et en soins de suite pour les patients qui en ont besoin.</p>
+      </div>
+      <div class="support-item">
+        <strong>Accompagnement nutritionnel et de la douleur</strong>
+        <p>Un suivi dédié pour préserver la qualité de vie pendant et après le traitement.</p>
+      </div>
+      <div class="support-item">
+        <strong>Expertise ORL</strong>
+        <p>Appui sur l'expertise médicale ORL déjà présente à Forcilles pour les patients concernés.</p>
+      </div>
+      <div class="support-item">
+        <strong>Décision collégiale</strong>
+        <p>Chaque dossier est discuté en réunion de concertation pluridisciplinaire dédiée avant toute proposition de traitement.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="adresser-un-patient">
+    <div class="section-eyebrow">Correspondants médicaux</div>
+    <h2>Comment adresser un patient</h2>
+    <p>Vous suivez un patient présentant une récidive en zone déjà irradiée ? Voici les éléments à transmettre à l'unité pour une première évaluation.</p>
+    <div class="referral-box">
+      <h3>Adressage à la RCP réirradiation</h3>
+      <ul class="referral-list">
+        <li><span class="label">Contact RCP</span> <span class="placeholder">Coordonnées à définir par le service avant mise en ligne</span></li>
+        <li><span class="label">Dossier à transmettre</span> Compte-rendu de la radiothérapie initiale, imagerie, dossier dosimétrique si disponible</li>
+        <li><span class="label">Délai de retour</span> <span class="placeholder">Délai indicatif à confirmer par le service</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="porteurs-du-projet">
+    <div class="section-eyebrow">L'équipe</div>
+    <h2>Les porteurs du projet</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo-placeholder">MG</div>
+        <div class="name">Dr Michel Gozy</div>
+        <div class="role">Chef de service, Radiothérapie — Hôpital de Forcilles</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-placeholder">WK</div>
+        <div class="name">Dr Wassim Khodari</div>
+        <div class="role">Radiothérapeute — Hôpital de Forcilles</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="institutional">
+  <p>L'Hôpital de Forcilles fait partie du groupe <span class="group-name">Cognacq-Jay Santé</span>.</p>
+</footer>
+
+</body>
+</html>
