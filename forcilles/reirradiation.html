@@ -92,35 +92,42 @@ header.site-header {
 
 /* ── Hero ── */
 .hero {
-  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
-  color: #fff;
-  padding: 4.5rem 2rem 4rem;
+  background: linear-gradient(180deg, var(--sky-light) 0%, var(--warm-white) 100%);
+  color: var(--navy);
+  padding: 4rem 2rem 0;
 }
 .hero-inner { max-width: 800px; margin: 0 auto; text-align: center; }
 .hero-eyebrow {
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--orange-on-dark);
+  color: var(--orange-on-light);
   font-weight: 600;
   margin-bottom: 1rem;
 }
 .hero h1 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 600;
+  color: var(--navy);
   font-size: clamp(2.1rem, 5vw, 3rem);
   line-height: 1.2;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
 }
 .hero-subtitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.3rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
   color: var(--sky);
-  line-height: 1.5;
+  line-height: 1.4;
   max-width: 620px;
   margin: 0 auto;
+}
+.hero-divider {
+  width: 72px;
+  height: 4px;
+  background: var(--orange);
+  margin: 2rem auto 0;
+  border-radius: 2px;
 }
 
 /* ── Sections ── */
@@ -414,11 +421,12 @@ footer.institutional .group-name { color: var(--navy); font-weight: 600; }
   </div>
 </header>
 
-<section class="hero" style="border-bottom:none;padding-bottom:4rem;">
+<section class="hero" style="border-bottom:none;padding-bottom:3rem;">
   <div class="hero-inner">
     <div class="hero-eyebrow">Service de radiothérapie</div>
     <h1>Unité d'expertise en réirradiation</h1>
     <p class="hero-subtitle">Une nouvelle option de traitement pour les patients en récidive, grâce à un plateau technique de haute précision</p>
+    <div class="hero-divider"></div>
   </div>
 </section>
 
