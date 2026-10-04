@@ -1453,6 +1453,8 @@ section[id], div[id], header[id] {
   position:absolute; inset:0;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   z-index:1; opacity:1; transition:opacity 0.35s ease;
+  padding: 1rem 1rem max(2.5rem, env(safe-area-inset-bottom, 2.5rem));
+  overflow-y: auto;
 }
 #preloader-or.open .or-stage { opacity:0; }
 .or-svg { width:min(220px,52vw); height:min(220px,52vw); overflow:visible; margin-bottom:-min(110px,26vw); }
@@ -1787,7 +1789,7 @@ nav.scrolled {
       <span class="or-word-octobre">octobre</span>
       <div class="or-rose-wrap"><span class="or-word-rose"><span class="or-rose-flash" aria-hidden="true">Rose</span>Rose</span></div>
     </div>
-    <div class="or-ribbon">🎗️</div>
+    <div class="or-ribbon">🎀</div>
     <div class="or-sub">Ensemble contre le cancer du sein</div>
     <a class="or-cta" href="centre-sein.html">
       <span>Découvrir notre Centre Sein</span>
