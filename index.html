@@ -1453,8 +1453,6 @@ section[id], div[id], header[id] {
   position:absolute; inset:0;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   z-index:1; opacity:1; transition:opacity 0.35s ease;
-  padding: 1rem 1rem max(2.5rem, env(safe-area-inset-bottom, 2.5rem));
-  overflow-y: auto;
 }
 #preloader-or.open .or-stage { opacity:0; }
 .or-svg { width:min(220px,52vw); height:min(220px,52vw); overflow:visible; margin-bottom:-min(110px,26vw); }
@@ -1569,7 +1567,7 @@ section[id], div[id], header[id] {
   will-change:opacity;
   animation:mbLetterFlash 3.8s ease-in-out 5.4s 1 forwards;
 }
-.or-ribbon { font-size:clamp(0.9rem,2.2vw,1.2rem); opacity:0; animation:plFade .5s ease 4.7s forwards; margin-top:0.55rem; }
+.or-ribbon { font-size:clamp(0.9rem,2.2vw,1.2rem); opacity:0; animation:plFade .5s ease 4.7s forwards; margin-top:0.15rem; }
 .or-sub {
   font-size:clamp(0.78rem,1.7vw,1.0rem); letter-spacing:0.18em;
   text-transform:uppercase; color:rgba(255,255,255,0.60);
