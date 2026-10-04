@@ -34,6 +34,22 @@ const _skipPl = _isInternal && (
 );
 ```
 
+### Intros saisonnières (index.html)
+3 preloaders coexistent, sélectionnés par mois :
+```javascript
+const m = new Date().getMonth();
+if (m === 2) return 'preloader-mb';   // Mars Bleu
+if (m === 9) return 'preloader-or';   // Octobre Rose
+return 'preloader';                    // intro classique
+```
+- **`#preloader`** — intro classique (toujours présente)
+- **`#preloader-mb`** — Mars Bleu (mois 2 = mars uniquement), fond `#040e1c`, faisceaux bleus, CTA kit dépistage colorectal
+- **`#preloader-or`** — Octobre Rose (mois 9 = octobre uniquement), fond `#1a0714`, faisceaux roses, CTA → `centre-sein.html` ("Découvrir notre Centre Sein"), ruban 🎀
+- Durée des deux saisonnières : **9.8s** — condition `('preloader-mb' || 'preloader-or') ? 9800 : 5500`
+- Préfixes CSS : `.mb-` pour Mars Bleu, `.or-` pour Octobre Rose
+- `.or-word-rose` a `line-height: 0.85` pour serrer l'espace autour de "ROSE"
+- `.or-ribbon` a `margin-top: 0.15rem`
+
 ### Navigation / Burger menu
 - Hub links dans burger : `institut.html`, `parcours.html`, `expertises.html` en font-weight:600
 - "Prendre RDV" pointe partout vers `rendez-vous.html`
